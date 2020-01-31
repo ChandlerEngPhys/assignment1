@@ -1,44 +1,37 @@
 %function[] = assignment1()
 clear
 clf
-%Effective mass of electrons
-m_n = 0.26;
+
+m_e = 9.1093837015e-31;%rest mass in kg
+m_n = 0.26*m_e;%Effective mass of electrons
 
 %Nominial size of the region in nm
-xlimit = [0 200];
-ylimit = [0 100];
+xlimit = [0 200e-9];
+ylimit = [0 100e-9];
 
-%question1();
-
-%end
-
-%function[] = question1()
-%Question 1 Electron Modelling
-%Part 1
+%Question 1: Electron Modelling
+%Q1: Part 1
 %What is the thermal velocity?
-%Temperature in Kelvin
-T = 300;
+kb=1.380649e-23;
+T = 300;%Temperature in Kelvin
+vth = sqrt((kb*T)/m_n);
+
+%Q1: Part 2
+%What is the mean free path?
+tmn = 0.2e-12;%mean time between collisions
 MFP = 1;
+%Q1: Part 3
+%Simulation of the random motion of the electrons
 
-%Part 2
-%What is the mean time between collisions?
 
-%Part 3
-grid ON
+%Amount of particles (total or plotted[plots first X particles])
+particles = 100;
+plottedparticles = 7;
 
-particles = 5;
-V0= 1;
+ts=5e-15;%time step
+tr=5000e-15;%runtime
 
-ts=1;%time step
-tr=100;%runtime
-
-% xlim(axes, xlimit);
-% ylim(axes, ylimit);
-%plot(x,y,'o');
-%Vx(1:nTraj) = V0 * cos(InitalAngle);
-%Vy(1:nTraj) = V0 * sin(InitalAngle);
-%Vx = Vx + dvx;
-%dx = Vx * dt;
+%Place particles in random locations
 x = zeros([1 particles]);
 y = zeros([1 particles]);
 for n=1:particles
@@ -48,15 +41,20 @@ end
 Vx = zeros([1 particles]);
 Vy = zeros([1 particles]);
 
+%Get random normalized angles
 for n = 1:particles
-    Vx(n)= V0*cos((2*rand-1)*2*pi);
-    Vy(n)= V0*sin((2*rand-1)*2*pi);
+    angX = cos((2*rand-1)*2*pi);
+    angY = sin((2*rand-1)*2*pi);
+    normalized = [angX angY]./norm([angX angY]);
+    Vx(n)= vth*normalized(1);
+    Vy(n)= vth*normalized(2);
 end
 
+%Physics of particles
 n=1;
-Px = zeros([tr/ts particles]);
-Py = zeros([tr/ts particles]);
-for t = 1:ts:tr
+Px = zeros([100 particles]);
+Py = zeros([100 particles]);
+for t = 0:ts:tr
     
     %Store Location
     for p = 1:particles
@@ -65,6 +63,7 @@ for t = 1:ts:tr
     end
     
     %Advance Location
+    distance = Vx*ts;
     x= x + Vx*ts;
     y= y + Vy*ts;
     
@@ -74,33 +73,27 @@ for t = 1:ts:tr
             Vy(p) = -1*Vy(p);
         end
         if x(p) < xlimit(1) 
-            x(p) = xlimit(2);
+            x(p) = x(p) + xlimit(2);
         elseif x(p) > xlimit(2)
-            x(p) = xlimit(1);
+            x(p) = x(p) - xlimit(2);
         end
     end
     n=n+1;
 end
-for N = 1:length(Px)
-    %Plot Location
-    for p = 1:particles
-%         hold on
-%         plot(Px(1:N, p),Py(1:N, p));
-%         hold off
-        plot(Px(1:N, 1),Py(1:N, 1));
+
+s = size(Px);
+for N = 1:s(1)
+    %Plot Trajectories
+    for pl = 1:plottedparticles
+        plot(Px(1:N, pl),Py(1:N, pl),'.');
         hold on
-        plot(Px(1:N, 2),Py(1:N, 2));
-        hold off
     end
-%     plot(Px(1:N, 1),Py(1:N, 1));
-%     hold on
-%     plot(Px(1:N, 2),Py(1:N, 2));
-%     hold off
+    hold off
     
-    xlabel('x');
-    ylabel('y');
     xlim(xlimit)
     ylim(ylimit)
+    xlabel('x');
+    ylabel('y');
     grid on
     pause(0.01)
 end

@@ -31,7 +31,7 @@ particles = 100;
 plottedparticles = 7;
 
 ts=5e-15;%time step
-tr=5000e-15;%runtime
+tr=500e-15;%runtime
 
 %Place particles in random locations
 x = zeros([1 particles]);
@@ -82,6 +82,8 @@ for t = 0:ts:tr
             x(p) = x(p) - xlimit(2);
         end
     end
+    Temp = (2/3)*(1/kb)*(1/2)*m_n*((sum(Vx)/p)^2+(sum(Vy)/p)^2);
+    plot(t,Temp);
     %Temperature
     %vAverage = (vAverage + sqrt(Vx^2+Vy^2))/p;
     %Temp=(2/3)*(1/kb)*(1/2)*m_n*vAverage^2;

@@ -82,6 +82,7 @@ for t = 0:ts:tr
             x(p) = x(p) - xlimit(2);
         end
     end
+    sum 
     %Temperature
     %vAverage = (vAverage + sqrt(Vx^2+Vy^2))/p;
     %Temp=(2/3)*(1/kb)*(1/2)*m_n*vAverage^2;
@@ -90,7 +91,6 @@ end
 s = size(Px);
 for N = 1:s(1)
     %Plot Trajectories
-    figure;
     for pl = 1:plottedparticles
         plot(Px(1:N, pl),Py(1:N, pl),'.');
         hold on

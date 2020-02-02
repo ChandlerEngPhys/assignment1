@@ -1,4 +1,4 @@
-%function[] = assignment1()
+%% Beginning of Assignment 1
 clear
 close all
 
@@ -8,21 +8,20 @@ m_n = 0.26*m_e;%Effective mass of electrons
 %Nominial size of the region in nm
 xlimit = [0 200e-9];
 ylimit = [0 100e-9];
-
-%Question 1: Electron Modelling
-%Q1: Part 1
+%% Part 1: Electron Modelling
+%% P1: Question 1
 %What is the thermal velocity?
 kb=1.380649e-23;%Boltzmann's constant [m^2*kg/K*s^2]
 T = 300;%Temperature in Kelvin
-vth = sqrt((kb*T)/m_n);
+vth = sqrt((3*kb*T)/m_n);
 
-%Q1: Part 2
+%% P1: Question 2
 %What is the mean free path?
 tmn = 0.2e-12;%mean time between collisions
-R = 8.314462; %Gas Constant [J/Kmol]
-vrms = sqrt((3*R*T)/m_n);
-MFP = vrms*tmn;
-%Q1: Part 3
+MFP = vth*tmn;
+
+
+%% P1: Question 3
 %Simulation of the random motion of the electrons
 
 
@@ -30,8 +29,9 @@ MFP = vrms*tmn;
 particles = 100;
 plottedparticles = 7;
 
+
 ts=5e-15;%time step
-tr=5000e-15;%runtime
+tr=500e-15;%runtime
 
 %Place particles in random locations
 x = zeros([1 particles]);
@@ -53,9 +53,13 @@ for n = 1:particles
 end
 
 %Physics of particles
+
+%Initialize variables
 n=1;
 Px = zeros([100 particles]);
 Py = zeros([100 particles]);
+Temp = zeros([1 1000]);
+Time =zeros([1 1000]);
 vAverage = 0;
 for t = 0:ts:tr
     
@@ -64,7 +68,6 @@ for t = 0:ts:tr
         Px(n, p)= x(p);
         Py(n, p)= y(p);
     end
-    n=n+1;%New column for next timestep
     
     %Advance Location
     distance = Vx*ts;
@@ -82,23 +85,23 @@ for t = 0:ts:tr
             x(p) = x(p) - xlimit(2);
         end
     end
-    sum 
-    %Temperature
-    %vAverage = (vAverage + sqrt(Vx^2+Vy^2))/p;
-    %Temp=(2/3)*(1/kb)*(1/2)*m_n*vAverage^2;
+    
+    Temp(n) = (2/3)*(1/kb)*(1/2)*m_n*(sum(Vx.^2+Vy.^2))/p;
+    Time(n) = t;
+    n=n+1;%New column in matrix for each timestep
 end
 
+
+
+%% P1: Question 3 i) Plot Trajectories
 s = size(Px);
+figure;
 for N = 1:s(1)
-    %Plot Trajectories
     for pl = 1:plottedparticles
         plot(Px(1:N, pl),Py(1:N, pl),'.');
         hold on
     end
     hold off
-    %Temperature
-    %vAverage = (vAverage + sqrt(Vx^2+Vy^2))/p;
-    %Temp=(2/3)*(1/kb)*(1/2)*m_n*vAverage^2;
     xlim(xlimit)
     ylim(ylimit)
     xlabel('x');
@@ -106,4 +109,11 @@ for N = 1:s(1)
     grid on
     pause(0.01)
 end
-%end
+
+%% P1: Question 3 ii) Temperature plot
+figure;
+plot(Time,Temp,'-')
+xlabel('Time (s)');
+ylabel('Temperature (K)');
+title('Temperature Plot')
+grid on

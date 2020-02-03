@@ -1,0 +1,564 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>assignment1</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-02-02"><meta name="DC.source" content="assignment1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Beginning of Assignment 1</a></li><li><a href="#2">Part 1: Electron Modelling</a></li><li><a href="#3">Part 1: Question 1: What is the thermal velocity?</a></li><li><a href="#4">Part 1: Question 2: What is the mean free path?</a></li><li><a href="#5">Part 1: Question 3 Setting initial values of particles</a></li><li><a href="#6">Part 2: Question 1: Give each particle a random velocity</a></li><li><a href="#7">Part 1: Question 3 Continued: Setting initial values of particles</a></li><li><a href="#8">Part 1: Question 3 Simulation of the random motion of the electrons after time t</a></li><li><a href="#9">Part 2 Question initialization of variables for MFP and time between collisions</a></li><li><a href="#10">General particle movement for all parts</a></li><li><a href="#11">Part 1: Question 3 Particle location update</a></li><li><a href="#12">Part 2: Question 2 Scattering probabilities</a></li><li><a href="#13">Part 1: Question 3 Particle outer boundaries</a></li><li><a href="#14">Part 3: Question 1 Boundary boxes</a></li><li><a href="#15">Question 1 Part 3: Advance the particle's location and find the temp</a></li><li><a href="#16">Part 3 Question 4: Temperature map</a></li><li><a href="#17">Proceed to next column of matrix that plots particle trajectories for data storage</a></li><li><a href="#19">Part 2: Question 4 Mean free path and mean time between collisions</a></li><li><a href="#20">Part 1: Question 3 i) Plot Trajectories</a></li><li><a href="#21">Part 3: Enhancements Question 1 Boundary boxes</a></li><li><a href="#23">P1: Question 3 ii) Temperature plot</a></li><li><a href="#24">Part 2: Collisions with Mean Free Path</a></li><li><a href="#25">Part 2: Question 1 Histogram</a></li><li><a href="#26">Part 3: Enhancements</a></li><li><a href="#27">Part 3 Question 3: Electron Density map</a></li><li><a href="#28">Part 3 Question 4: Temperature map</a></li><li><a href="#29">End of assignment</a></li></ul></div><h2 id="1">Beginning of Assignment 1</h2><pre class="codeinput"><span class="comment">%I'm not sure if I was supposed to do this report completely</span>
+<span class="comment">%in the publishing tool. I have a LaTeX document attached that has</span>
+<span class="comment">%more information and graphs on it</span>
+<span class="comment">%(graphs that would show up if part2 or part3 were set to false below)</span>
+clear
+close <span class="string">all</span>
+
+<span class="comment">%Which parts are included in the run</span>
+part2 = true;
+part3 = true;
+specular = true;<span class="comment">%boundaries for part 3 boxes are specular, if false boxes are diffusive</span>
+
+m_e = 9.1093837015e-31;<span class="comment">%rest mass in kg</span>
+m_n = 0.26*m_e;<span class="comment">%Effective mass of electrons</span>
+
+<span class="comment">%Nominial size of the region in nm</span>
+xlimit = [0 200e-9];
+ylimit = [0 100e-9];
+</pre><h2 id="2">Part 1: Electron Modelling</h2><h2 id="3">Part 1: Question 1: What is the thermal velocity?</h2><pre class="codeinput">kb=1.380649e-23;<span class="comment">%Boltzmann's constant [m^2*kg/K*s^2]</span>
+T = 300;<span class="comment">%Temperature in Kelvin</span>
+vth = sqrt((3*kb*T)/m_n);
+</pre><h2 id="4">Part 1: Question 2: What is the mean free path?</h2><pre class="codeinput">tmn = 0.2e-12;<span class="comment">%mean time between collisions</span>
+MFP = vth*tmn;
+</pre><h2 id="5">Part 1: Question 3 Setting initial values of particles</h2><pre class="codeinput"><span class="comment">%Amount of particles (total or plotted particles[plots first X particles])</span>
+particles = 10000;
+plottedparticles = 7;
+
+timesteps = 1000;
+dt=2e-15;<span class="comment">%time step</span>
+tr=timesteps*dt;<span class="comment">%runtime</span>
+
+<span class="comment">%Place particles in random locations</span>
+x = zeros([1 particles]);
+y = zeros([1 particles]);
+<span class="keyword">for</span> n=1:particles
+    x(n) = xlimit(1) + (xlimit(2)-xlimit(1)).*rand;
+    y(n) = ylimit(1) + (ylimit(2)-ylimit(1)).*rand;
+    <span class="keyword">if</span> part3 <span class="comment">%don't place particles in part 3 boxes</span>
+        <span class="keyword">while</span> (x(n) &gt;= 0.8e-7 &amp;&amp; x(n) &lt;= 1.2e-7 &amp;&amp; y(n) &lt;= 0.4e-7)<span class="keyword">...</span>
+                || (x(n) &gt;= 0.8e-7 &amp;&amp; x(n) &lt;= 1.2e-7 &amp;&amp; y(n) &gt;= 0.6e-7)
+            x(n) = xlimit(1) + (xlimit(2)-xlimit(1)).*rand;
+            y(n) = ylimit(1) + (ylimit(2)-ylimit(1)).*rand;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><h2 id="6">Part 2: Question 1: Give each particle a random velocity</h2><pre class="codeinput">Rx = (vth).*randn(particles,1) + vth;<span class="comment">%Where the average is vth and the variance is vth/4</span>
+Ry = (vth).*randn(particles,1) + vth;
+</pre><h2 id="7">Part 1: Question 3 Continued: Setting initial values of particles</h2><pre class="codeinput">Vx = zeros([1 particles]);
+Vy = zeros([1 particles]);
+<span class="comment">%Get random normalized angles</span>
+<span class="keyword">for</span> n = 1:particles
+    angX = cos((2*rand-1)*2*pi);
+    angY = sin((2*rand-1)*2*pi);
+    normalized = [angX angY]./norm([angX angY]);
+    <span class="keyword">if</span> part2
+        Vx(n)= Rx(n)*normalized(1);<span class="comment">%Random velocity Rx is used for part 2</span>
+        Vy(n)= Ry(n)*normalized(2);
+    <span class="keyword">else</span>
+        Vx(n)= vth*normalized(1);<span class="comment">%part 1 velocity has magnitude v_thermal</span>
+        Vy(n)= vth*normalized(2);
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+</pre><h2 id="8">Part 1: Question 3 Simulation of the random motion of the electrons after time t</h2><pre class="codeinput"><span class="comment">%Initialize variables used for storage for plotting later</span>
+n=1;
+Px = zeros([timesteps particles]);
+Py = zeros([timesteps particles]);
+Temp = zeros([1 timesteps]);
+Time = zeros([1 timesteps]);
+</pre><h2 id="9">Part 2 Question initialization of variables for MFP and time between collisions</h2><pre class="codeinput">numberOfCollisions = zeros([1 particles]);
+meanTimeBetweenCollisions = zeros([1 particles]);
+meanFreePath = zeros([1 particles]);
+noCollisionYet = true([1 particles]);
+</pre><h2 id="10">General particle movement for all parts</h2><pre class="codeinput"><span class="keyword">for</span> t = 0:dt:tr
+</pre><h2 id="11">Part 1: Question 3 Particle location update</h2><pre class="codeinput">    <span class="comment">%Store Location</span>
+    <span class="keyword">for</span> p = 1:particles
+        Px(n, p)= x(p);
+        Py(n, p)= y(p);
+    <span class="keyword">end</span>
+</pre><h2 id="12">Part 2: Question 2 Scattering probabilities</h2><pre class="codeinput">    <span class="keyword">if</span> part2
+        Pscat = 1-exp(-(dt)/(tmn));<span class="comment">%The scattering probability</span>
+        <span class="keyword">for</span> p = 1:particles
+            <span class="keyword">if</span> Pscat &gt; rand
+                Vscatter(p) = sqrt(Vx(p)^2+Vy(p)^2);<span class="comment">%Velocity of the particle when it scatters</span>
+
+                <span class="comment">%Give new random velocities and directions</span>
+                angX = cos((2*rand-1)*2*pi);
+                angY = sin((2*rand-1)*2*pi);
+                normalized = [angX angY]./norm([angX angY]);
+                Rx = (vth).*randn + vth;
+                Ry = (vth).*randn + vth;
+                Vx(p) = Rx*normalized(1);
+                Vy(p) = Ry*normalized(2);
+
+                <span class="comment">%Find the time and distance since the last collision</span>
+                <span class="keyword">if</span> noCollisionYet(p)
+                    noCollisionYet(p) = false;
+                <span class="keyword">else</span>
+                    numberOfCollisions(p) = numberOfCollisions(p) + 1;
+                    meanTimeBetweenCollisions(p) = (meanTimeBetweenCollisions(p) + (t - lastCollisionTime(p)))/ numberOfCollisions(p);
+
+                <span class="keyword">end</span>
+                lastCollisionTime(p) = t;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+</pre><h2 id="13">Part 1: Question 3 Particle outer boundaries</h2><pre class="codeinput">    <span class="comment">%Check boundaries Outer Boundaries</span>
+    <span class="keyword">for</span> p = 1:particles
+        <span class="keyword">if</span> (y(p)+ Vy(p)*dt) &lt;= ylimit(1) || (y(p)+Vy(p)*dt) &gt;= ylimit(2)
+            Vy(p) = -1*Vy(p);
+        <span class="keyword">end</span>
+        <span class="keyword">if</span> x(p) &lt;= xlimit(1)
+            x(p) = x(p) + xlimit(2);
+        <span class="keyword">elseif</span> x(p) &gt;= xlimit(2)
+            x(p) = x(p) - xlimit(2);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+</pre><h2 id="14">Part 3: Question 1 Boundary boxes</h2><pre class="codeinput">    <span class="comment">%Check Box Boundaries</span>
+    <span class="keyword">if</span> part3
+
+        <span class="comment">%Specular boundaries</span>
+        <span class="keyword">if</span> specular
+            <span class="keyword">for</span> p = 1:particles
+                   <span class="comment">%if the next position of the particle is in the box</span>
+                   <span class="comment">%change the particle's direction</span>
+                   <span class="keyword">if</span> ((x(p) + Vx(p)*dt) &gt;= 0.8e-7 &amp;&amp; (x(p) + Vx(p)*dt) &lt;= 1.2e-7 &amp;&amp;<span class="keyword">...</span>
+                           (y(p) + Vy(p)*dt &lt;= 0.4e-7 || y(p) + Vy(p)*dt &gt;= 0.6e-7))
+                       <span class="comment">%if the position of the particle is currently between</span>
+                       <span class="comment">%the two boxes reflect in the y-direction</span>
+                       <span class="keyword">if</span> x(p) &gt;= 0.8e-7 &amp;&amp; x(p) &lt;= 1.2e-7
+                           Vy(p) = -1*Vy(p);
+                       <span class="comment">%otherwise reflect in the x-direction</span>
+                       <span class="keyword">else</span>
+                           Vx(p) = -1*Vx(p);
+                       <span class="keyword">end</span>
+                   <span class="keyword">end</span>
+            <span class="keyword">end</span>
+        <span class="comment">%Diffusive boundaries</span>
+        <span class="keyword">else</span>
+            <span class="keyword">for</span> p = 1:particles
+                   <span class="comment">%if the next position of the particle is in the box</span>
+                   <span class="comment">%change the particle's direction</span>
+                   <span class="keyword">if</span> ((x(p) + Vx(p)*dt) &gt;= 0.8e-7 &amp;&amp; (x(p) + Vx(p)*dt) &lt;= 1.2e-7 &amp;&amp;<span class="keyword">...</span>
+                           (y(p) + Vy(p)*dt &lt;= 0.4e-7 || y(p) + Vy(p)*dt &gt;= 0.6e-7))
+                       <span class="comment">%if the position of the particle is currently between</span>
+                       <span class="comment">%the two boxes reflect in the y-direction with a</span>
+                       <span class="comment">%random x velocity</span>
+                       <span class="keyword">if</span> x(p) &gt;= 0.8e-7 &amp;&amp; x(p) &lt;= 1.2e-7
+                           angX = cos((2*rand-1)*2*pi);
+                           angY = sin((2*rand-1)*2*pi);
+                           normalized = [angX angY]./norm([angX angY]);
+                           Rx = (vth).*randn + vth;
+                           Vx(p) = Rx*normalized(1);
+                           Vy(p) = -1*Vy(p);
+                       <span class="comment">%otherwise reflect in the x-direction with a random</span>
+                       <span class="comment">%y velocity</span>
+                       <span class="keyword">else</span>
+                           angX = cos((2*rand-1)*2*pi);
+                           angY = sin((2*rand-1)*2*pi);
+                           normalized = [angX angY]./norm([angX angY]);
+                           Ry = (vth).*randn + vth;
+                           Vx(p) = -1*Vx(p);
+                           Vy(p) = Ry*normalized(2);
+                       <span class="keyword">end</span>
+                   <span class="keyword">end</span>
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+</pre><h2 id="15">Question 1 Part 3: Advance the particle's location and find the temp</h2><pre class="codeinput">    <span class="comment">%Advance Location</span>
+    distance = Vx*dt;
+    x= x + Vx*dt;
+    y= y + Vy*dt;
+    <span class="comment">%Calculate the temperature at each time step and store the values of</span>
+    <span class="comment">%Temp and Time</span>
+    Temp(n) = (2/3)*(1/kb)*(1/2)*m_n*(sum(Vx.^2+Vy.^2))/p;
+    Time(n) = t;
+</pre><h2 id="16">Part 3 Question 4: Temperature map</h2><h2 id="17">Proceed to next column of matrix that plots particle trajectories for data storage</h2><pre class="codeinput">    n=n+1;<span class="comment">%New column in matrix for each timestep</span>
+</pre><pre class="codeinput"><span class="keyword">end</span>
+</pre><h2 id="19">Part 2: Question 4 Mean free path and mean time between collisions</h2><pre class="codeinput">measuredMeanTimeBetweenCollisions = sum(meanTimeBetweenCollisions)/particles
+measuredMeanFreePath = sum(measuredMeanTimeBetweenCollisions*Vscatter)/particles
+</pre><pre class="codeoutput">
+measuredMeanTimeBetweenCollisions =
+
+   4.2276e-14
+
+
+measuredMeanFreePath =
+
+   1.2015e-08
+
+</pre><h2 id="20">Part 1: Question 3 i) Plot Trajectories</h2><pre class="codeinput">s = size(Px);
+figure;
+<span class="keyword">for</span> N = 1:s(1)
+    <span class="keyword">for</span> pl = 1:plottedparticles
+        plot(Px(1:N, pl),Py(1:N, pl),<span class="string">'.'</span>);
+        hold <span class="string">on</span>
+    <span class="keyword">end</span>
+    hold <span class="string">off</span>
+    xlim(xlimit)
+    ylim(ylimit)
+    xlabel(<span class="string">'x'</span>);
+    ylabel(<span class="string">'y'</span>);
+    grid <span class="string">on</span>
+    <span class="keyword">if</span> part3
+</pre><h2 id="21">Part 3: Enhancements Question 1 Boundary boxes</h2><pre class="codeinput">        rectangle(<span class="string">'Position'</span>,[0.8e-7 0 0.4e-7 0.4e-7])
+        rectangle(<span class="string">'Position'</span>,[0.8e-7 0.6e-7 0.4e-7 0.4e-7])
+</pre><img vspace="5" hspace="5" src="assignment1_01.png" alt=""> <img vspace="5" hspace="5" src="assignment1_02.png" alt=""> <img vspace="5" hspace="5" src="assignment1_03.png" alt=""> <img vspace="5" hspace="5" src="assignment1_04.png" alt=""> <img vspace="5" hspace="5" src="assignment1_05.png" alt=""> <img vspace="5" hspace="5" src="assignment1_06.png" alt=""> <img vspace="5" hspace="5" src="assignment1_07.png" alt=""> <img vspace="5" hspace="5" src="assignment1_08.png" alt=""> <img vspace="5" hspace="5" src="assignment1_09.png" alt=""> <img vspace="5" hspace="5" src="assignment1_10.png" alt=""> <img vspace="5" hspace="5" src="assignment1_11.png" alt=""> <img vspace="5" hspace="5" src="assignment1_12.png" alt=""> <img vspace="5" hspace="5" src="assignment1_13.png" alt=""> <img vspace="5" hspace="5" src="assignment1_14.png" alt=""> <img vspace="5" hspace="5" src="assignment1_15.png" alt=""> <img vspace="5" hspace="5" src="assignment1_16.png" alt=""> <img vspace="5" hspace="5" src="assignment1_17.png" alt=""> <img vspace="5" hspace="5" src="assignment1_18.png" alt=""> <img vspace="5" hspace="5" src="assignment1_19.png" alt=""> <img vspace="5" hspace="5" src="assignment1_20.png" alt=""> <img vspace="5" hspace="5" src="assignment1_21.png" alt=""> <img vspace="5" hspace="5" src="assignment1_22.png" alt=""> <img vspace="5" hspace="5" src="assignment1_23.png" alt=""> <img vspace="5" hspace="5" src="assignment1_24.png" alt=""> <img vspace="5" hspace="5" src="assignment1_25.png" alt=""> <img vspace="5" hspace="5" src="assignment1_26.png" alt=""> <img vspace="5" hspace="5" src="assignment1_27.png" alt=""> <img vspace="5" hspace="5" src="assignment1_28.png" alt=""> <img vspace="5" hspace="5" src="assignment1_29.png" alt=""> <img vspace="5" hspace="5" src="assignment1_30.png" alt=""> <img vspace="5" hspace="5" src="assignment1_31.png" alt=""> <img vspace="5" hspace="5" src="assignment1_32.png" alt=""> <img vspace="5" hspace="5" src="assignment1_33.png" alt=""> <img vspace="5" hspace="5" src="assignment1_34.png" alt=""> <img vspace="5" hspace="5" src="assignment1_35.png" alt=""> <img vspace="5" hspace="5" src="assignment1_36.png" alt=""> <img vspace="5" hspace="5" src="assignment1_37.png" alt=""> <img vspace="5" hspace="5" src="assignment1_38.png" alt=""> <img vspace="5" hspace="5" src="assignment1_39.png" alt=""> <img vspace="5" hspace="5" src="assignment1_40.png" alt=""> <img vspace="5" hspace="5" src="assignment1_41.png" alt=""> <img vspace="5" hspace="5" src="assignment1_42.png" alt=""> <img vspace="5" hspace="5" src="assignment1_43.png" alt=""> <img vspace="5" hspace="5" src="assignment1_44.png" alt=""> <img vspace="5" hspace="5" src="assignment1_45.png" alt=""> <img vspace="5" hspace="5" src="assignment1_46.png" alt=""> <img vspace="5" hspace="5" src="assignment1_47.png" alt=""> <img vspace="5" hspace="5" src="assignment1_48.png" alt=""> <img vspace="5" hspace="5" src="assignment1_49.png" alt=""> <img vspace="5" hspace="5" src="assignment1_50.png" alt=""> <img vspace="5" hspace="5" src="assignment1_51.png" alt=""> <img vspace="5" hspace="5" src="assignment1_52.png" alt=""> <img vspace="5" hspace="5" src="assignment1_53.png" alt=""> <img vspace="5" hspace="5" src="assignment1_54.png" alt=""> <img vspace="5" hspace="5" src="assignment1_55.png" alt=""> <img vspace="5" hspace="5" src="assignment1_56.png" alt=""> <img vspace="5" hspace="5" src="assignment1_57.png" alt=""> <img vspace="5" hspace="5" src="assignment1_58.png" alt=""> <img vspace="5" hspace="5" src="assignment1_59.png" alt=""> <img vspace="5" hspace="5" src="assignment1_60.png" alt=""> <img vspace="5" hspace="5" src="assignment1_61.png" alt=""> <img vspace="5" hspace="5" src="assignment1_62.png" alt=""> <img vspace="5" hspace="5" src="assignment1_63.png" alt=""> <img vspace="5" hspace="5" src="assignment1_64.png" alt=""> <img vspace="5" hspace="5" src="assignment1_65.png" alt=""> <img vspace="5" hspace="5" src="assignment1_66.png" alt=""> <img vspace="5" hspace="5" src="assignment1_67.png" alt=""> <img vspace="5" hspace="5" src="assignment1_68.png" alt=""> <img vspace="5" hspace="5" src="assignment1_69.png" alt=""> <img vspace="5" hspace="5" src="assignment1_70.png" alt=""> <img vspace="5" hspace="5" src="assignment1_71.png" alt=""> <img vspace="5" hspace="5" src="assignment1_72.png" alt=""> <img vspace="5" hspace="5" src="assignment1_73.png" alt=""> <img vspace="5" hspace="5" src="assignment1_74.png" alt=""> <img vspace="5" hspace="5" src="assignment1_75.png" alt=""> <img vspace="5" hspace="5" src="assignment1_76.png" alt=""> <img vspace="5" hspace="5" src="assignment1_77.png" alt=""> <img vspace="5" hspace="5" src="assignment1_78.png" alt=""> <img vspace="5" hspace="5" src="assignment1_79.png" alt=""> <img vspace="5" hspace="5" src="assignment1_80.png" alt=""> <img vspace="5" hspace="5" src="assignment1_81.png" alt=""> <img vspace="5" hspace="5" src="assignment1_82.png" alt=""> <img vspace="5" hspace="5" src="assignment1_83.png" alt=""> <img vspace="5" hspace="5" src="assignment1_84.png" alt=""> <img vspace="5" hspace="5" src="assignment1_85.png" alt=""> <img vspace="5" hspace="5" src="assignment1_86.png" alt=""> <img vspace="5" hspace="5" src="assignment1_87.png" alt=""> <img vspace="5" hspace="5" src="assignment1_88.png" alt=""> <img vspace="5" hspace="5" src="assignment1_89.png" alt=""> <img vspace="5" hspace="5" src="assignment1_90.png" alt=""> <img vspace="5" hspace="5" src="assignment1_91.png" alt=""> <img vspace="5" hspace="5" src="assignment1_92.png" alt=""> <img vspace="5" hspace="5" src="assignment1_93.png" alt=""> <img vspace="5" hspace="5" src="assignment1_94.png" alt=""> <img vspace="5" hspace="5" src="assignment1_95.png" alt=""> <img vspace="5" hspace="5" src="assignment1_96.png" alt=""> <img vspace="5" hspace="5" src="assignment1_97.png" alt=""> <img vspace="5" hspace="5" src="assignment1_98.png" alt=""> <img vspace="5" hspace="5" src="assignment1_99.png" alt=""> <img vspace="5" hspace="5" src="assignment1_100.png" alt=""> <img vspace="5" hspace="5" src="assignment1_101.png" alt=""> <img vspace="5" hspace="5" src="assignment1_102.png" alt=""> <img vspace="5" hspace="5" src="assignment1_103.png" alt=""> <img vspace="5" hspace="5" src="assignment1_104.png" alt=""> <img vspace="5" hspace="5" src="assignment1_105.png" alt=""> <img vspace="5" hspace="5" src="assignment1_106.png" alt=""> <img vspace="5" hspace="5" src="assignment1_107.png" alt=""> <img vspace="5" hspace="5" src="assignment1_108.png" alt=""> <img vspace="5" hspace="5" src="assignment1_109.png" alt=""> <img vspace="5" hspace="5" src="assignment1_110.png" alt=""> <img vspace="5" hspace="5" src="assignment1_111.png" alt=""> <img vspace="5" hspace="5" src="assignment1_112.png" alt=""> <img vspace="5" hspace="5" src="assignment1_113.png" alt=""> <img vspace="5" hspace="5" src="assignment1_114.png" alt=""> <img vspace="5" hspace="5" src="assignment1_115.png" alt=""> <img vspace="5" hspace="5" src="assignment1_116.png" alt=""> <img vspace="5" hspace="5" src="assignment1_117.png" alt=""> <img vspace="5" hspace="5" src="assignment1_118.png" alt=""> <img vspace="5" hspace="5" src="assignment1_119.png" alt=""> <img vspace="5" hspace="5" src="assignment1_120.png" alt=""> <img vspace="5" hspace="5" src="assignment1_121.png" alt=""> <img vspace="5" hspace="5" src="assignment1_122.png" alt=""> <img vspace="5" hspace="5" src="assignment1_123.png" alt=""> <img vspace="5" hspace="5" src="assignment1_124.png" alt=""> <img vspace="5" hspace="5" src="assignment1_125.png" alt=""> <img vspace="5" hspace="5" src="assignment1_126.png" alt=""> <img vspace="5" hspace="5" src="assignment1_127.png" alt=""> <img vspace="5" hspace="5" src="assignment1_128.png" alt=""> <img vspace="5" hspace="5" src="assignment1_129.png" alt=""> <img vspace="5" hspace="5" src="assignment1_130.png" alt=""> <img vspace="5" hspace="5" src="assignment1_131.png" alt=""> <img vspace="5" hspace="5" src="assignment1_132.png" alt=""> <img vspace="5" hspace="5" src="assignment1_133.png" alt=""> <img vspace="5" hspace="5" src="assignment1_134.png" alt=""> <img vspace="5" hspace="5" src="assignment1_135.png" alt=""> <img vspace="5" hspace="5" src="assignment1_136.png" alt=""> <img vspace="5" hspace="5" src="assignment1_137.png" alt=""> <img vspace="5" hspace="5" src="assignment1_138.png" alt=""> <img vspace="5" hspace="5" src="assignment1_139.png" alt=""> <img vspace="5" hspace="5" src="assignment1_140.png" alt=""> <img vspace="5" hspace="5" src="assignment1_141.png" alt=""> <img vspace="5" hspace="5" src="assignment1_142.png" alt=""> <img vspace="5" hspace="5" src="assignment1_143.png" alt=""> <img vspace="5" hspace="5" src="assignment1_144.png" alt=""> <img vspace="5" hspace="5" src="assignment1_145.png" alt=""> <img vspace="5" hspace="5" src="assignment1_146.png" alt=""> <img vspace="5" hspace="5" src="assignment1_147.png" alt=""> <img vspace="5" hspace="5" src="assignment1_148.png" alt=""> <img vspace="5" hspace="5" src="assignment1_149.png" alt=""> <img vspace="5" hspace="5" src="assignment1_150.png" alt=""> <img vspace="5" hspace="5" src="assignment1_151.png" alt=""> <img vspace="5" hspace="5" src="assignment1_152.png" alt=""> <img vspace="5" hspace="5" src="assignment1_153.png" alt=""> <img vspace="5" hspace="5" src="assignment1_154.png" alt=""> <img vspace="5" hspace="5" src="assignment1_155.png" alt=""> <img vspace="5" hspace="5" src="assignment1_156.png" alt=""> <img vspace="5" hspace="5" src="assignment1_157.png" alt=""> <img vspace="5" hspace="5" src="assignment1_158.png" alt=""> <img vspace="5" hspace="5" src="assignment1_159.png" alt=""> <img vspace="5" hspace="5" src="assignment1_160.png" alt=""> <img vspace="5" hspace="5" src="assignment1_161.png" alt=""> <img vspace="5" hspace="5" src="assignment1_162.png" alt=""> <img vspace="5" hspace="5" src="assignment1_163.png" alt=""> <img vspace="5" hspace="5" src="assignment1_164.png" alt=""> <img vspace="5" hspace="5" src="assignment1_165.png" alt=""> <img vspace="5" hspace="5" src="assignment1_166.png" alt=""> <img vspace="5" hspace="5" src="assignment1_167.png" alt=""> <img vspace="5" hspace="5" src="assignment1_168.png" alt=""> <img vspace="5" hspace="5" src="assignment1_169.png" alt=""> <img vspace="5" hspace="5" src="assignment1_170.png" alt=""> <img vspace="5" hspace="5" src="assignment1_171.png" alt=""> <img vspace="5" hspace="5" src="assignment1_172.png" alt=""> <img vspace="5" hspace="5" src="assignment1_173.png" alt=""> <img vspace="5" hspace="5" src="assignment1_174.png" alt=""> <img vspace="5" hspace="5" src="assignment1_175.png" alt=""> <img vspace="5" hspace="5" src="assignment1_176.png" alt=""> <img vspace="5" hspace="5" src="assignment1_177.png" alt=""> <img vspace="5" hspace="5" src="assignment1_178.png" alt=""> <img vspace="5" hspace="5" src="assignment1_179.png" alt=""> <img vspace="5" hspace="5" src="assignment1_180.png" alt=""> <img vspace="5" hspace="5" src="assignment1_181.png" alt=""> <img vspace="5" hspace="5" src="assignment1_182.png" alt=""> <img vspace="5" hspace="5" src="assignment1_183.png" alt=""> <img vspace="5" hspace="5" src="assignment1_184.png" alt=""> <img vspace="5" hspace="5" src="assignment1_185.png" alt=""> <img vspace="5" hspace="5" src="assignment1_186.png" alt=""> <img vspace="5" hspace="5" src="assignment1_187.png" alt=""> <img vspace="5" hspace="5" src="assignment1_188.png" alt=""> <img vspace="5" hspace="5" src="assignment1_189.png" alt=""> <img vspace="5" hspace="5" src="assignment1_190.png" alt=""> <img vspace="5" hspace="5" src="assignment1_191.png" alt=""> <img vspace="5" hspace="5" src="assignment1_192.png" alt=""> <img vspace="5" hspace="5" src="assignment1_193.png" alt=""> <img vspace="5" hspace="5" src="assignment1_194.png" alt=""> <img vspace="5" hspace="5" src="assignment1_195.png" alt=""> <img vspace="5" hspace="5" src="assignment1_196.png" alt=""> <img vspace="5" hspace="5" src="assignment1_197.png" alt=""> <img vspace="5" hspace="5" src="assignment1_198.png" alt=""> <img vspace="5" hspace="5" src="assignment1_199.png" alt=""> <img vspace="5" hspace="5" src="assignment1_200.png" alt=""> <img vspace="5" hspace="5" src="assignment1_201.png" alt=""> <img vspace="5" hspace="5" src="assignment1_202.png" alt=""> <img vspace="5" hspace="5" src="assignment1_203.png" alt=""> <img vspace="5" hspace="5" src="assignment1_204.png" alt=""> <img vspace="5" hspace="5" src="assignment1_205.png" alt=""> <img vspace="5" hspace="5" src="assignment1_206.png" alt=""> <img vspace="5" hspace="5" src="assignment1_207.png" alt=""> <img vspace="5" hspace="5" src="assignment1_208.png" alt=""> <img vspace="5" hspace="5" src="assignment1_209.png" alt=""> <img vspace="5" hspace="5" src="assignment1_210.png" alt=""> <img vspace="5" hspace="5" src="assignment1_211.png" alt=""> <img vspace="5" hspace="5" src="assignment1_212.png" alt=""> <img vspace="5" hspace="5" src="assignment1_213.png" alt=""> <img vspace="5" hspace="5" src="assignment1_214.png" alt=""> <img vspace="5" hspace="5" src="assignment1_215.png" alt=""> <img vspace="5" hspace="5" src="assignment1_216.png" alt=""> <img vspace="5" hspace="5" src="assignment1_217.png" alt=""> <img vspace="5" hspace="5" src="assignment1_218.png" alt=""> <img vspace="5" hspace="5" src="assignment1_219.png" alt=""> <img vspace="5" hspace="5" src="assignment1_220.png" alt=""> <img vspace="5" hspace="5" src="assignment1_221.png" alt=""> <img vspace="5" hspace="5" src="assignment1_222.png" alt=""> <img vspace="5" hspace="5" src="assignment1_223.png" alt=""> <img vspace="5" hspace="5" src="assignment1_224.png" alt=""> <img vspace="5" hspace="5" src="assignment1_225.png" alt=""> <img vspace="5" hspace="5" src="assignment1_226.png" alt=""> <img vspace="5" hspace="5" src="assignment1_227.png" alt=""> <img vspace="5" hspace="5" src="assignment1_228.png" alt=""> <img vspace="5" hspace="5" src="assignment1_229.png" alt=""> <img vspace="5" hspace="5" src="assignment1_230.png" alt=""> <img vspace="5" hspace="5" src="assignment1_231.png" alt=""> <img vspace="5" hspace="5" src="assignment1_232.png" alt=""> <img vspace="5" hspace="5" src="assignment1_233.png" alt=""> <img vspace="5" hspace="5" src="assignment1_234.png" alt=""> <img vspace="5" hspace="5" src="assignment1_235.png" alt=""> <img vspace="5" hspace="5" src="assignment1_236.png" alt=""> <img vspace="5" hspace="5" src="assignment1_237.png" alt=""> <img vspace="5" hspace="5" src="assignment1_238.png" alt=""> <img vspace="5" hspace="5" src="assignment1_239.png" alt=""> <img vspace="5" hspace="5" src="assignment1_240.png" alt=""> <img vspace="5" hspace="5" src="assignment1_241.png" alt=""> <img vspace="5" hspace="5" src="assignment1_242.png" alt=""> <img vspace="5" hspace="5" src="assignment1_243.png" alt=""> <img vspace="5" hspace="5" src="assignment1_244.png" alt=""> <img vspace="5" hspace="5" src="assignment1_245.png" alt=""> <img vspace="5" hspace="5" src="assignment1_246.png" alt=""> <img vspace="5" hspace="5" src="assignment1_247.png" alt=""> <img vspace="5" hspace="5" src="assignment1_248.png" alt=""> <img vspace="5" hspace="5" src="assignment1_249.png" alt=""> <img vspace="5" hspace="5" src="assignment1_250.png" alt=""> <img vspace="5" hspace="5" src="assignment1_251.png" alt=""> <img vspace="5" hspace="5" src="assignment1_252.png" alt=""> <img vspace="5" hspace="5" src="assignment1_253.png" alt=""> <img vspace="5" hspace="5" src="assignment1_254.png" alt=""> <img vspace="5" hspace="5" src="assignment1_255.png" alt=""> <img vspace="5" hspace="5" src="assignment1_256.png" alt=""> <img vspace="5" hspace="5" src="assignment1_257.png" alt=""> <img vspace="5" hspace="5" src="assignment1_258.png" alt=""> <img vspace="5" hspace="5" src="assignment1_259.png" alt=""> <img vspace="5" hspace="5" src="assignment1_260.png" alt=""> <img vspace="5" hspace="5" src="assignment1_261.png" alt=""> <img vspace="5" hspace="5" src="assignment1_262.png" alt=""> <img vspace="5" hspace="5" src="assignment1_263.png" alt=""> <img vspace="5" hspace="5" src="assignment1_264.png" alt=""> <img vspace="5" hspace="5" src="assignment1_265.png" alt=""> <img vspace="5" hspace="5" src="assignment1_266.png" alt=""> <img vspace="5" hspace="5" src="assignment1_267.png" alt=""> <img vspace="5" hspace="5" src="assignment1_268.png" alt=""> <img vspace="5" hspace="5" src="assignment1_269.png" alt=""> <img vspace="5" hspace="5" src="assignment1_270.png" alt=""> <img vspace="5" hspace="5" src="assignment1_271.png" alt=""> <img vspace="5" hspace="5" src="assignment1_272.png" alt=""> <img vspace="5" hspace="5" src="assignment1_273.png" alt=""> <img vspace="5" hspace="5" src="assignment1_274.png" alt=""> <img vspace="5" hspace="5" src="assignment1_275.png" alt=""> <img vspace="5" hspace="5" src="assignment1_276.png" alt=""> <img vspace="5" hspace="5" src="assignment1_277.png" alt=""> <img vspace="5" hspace="5" src="assignment1_278.png" alt=""> <img vspace="5" hspace="5" src="assignment1_279.png" alt=""> <img vspace="5" hspace="5" src="assignment1_280.png" alt=""> <img vspace="5" hspace="5" src="assignment1_281.png" alt=""> <img vspace="5" hspace="5" src="assignment1_282.png" alt=""> <img vspace="5" hspace="5" src="assignment1_283.png" alt=""> <img vspace="5" hspace="5" src="assignment1_284.png" alt=""> <img vspace="5" hspace="5" src="assignment1_285.png" alt=""> <img vspace="5" hspace="5" src="assignment1_286.png" alt=""> <img vspace="5" hspace="5" src="assignment1_287.png" alt=""> <img vspace="5" hspace="5" src="assignment1_288.png" alt=""> <img vspace="5" hspace="5" src="assignment1_289.png" alt=""> <img vspace="5" hspace="5" src="assignment1_290.png" alt=""> <img vspace="5" hspace="5" src="assignment1_291.png" alt=""> <img vspace="5" hspace="5" src="assignment1_292.png" alt=""> <img vspace="5" hspace="5" src="assignment1_293.png" alt=""> <img vspace="5" hspace="5" src="assignment1_294.png" alt=""> <img vspace="5" hspace="5" src="assignment1_295.png" alt=""> <img vspace="5" hspace="5" src="assignment1_296.png" alt=""> <img vspace="5" hspace="5" src="assignment1_297.png" alt=""> <img vspace="5" hspace="5" src="assignment1_298.png" alt=""> <img vspace="5" hspace="5" src="assignment1_299.png" alt=""> <img vspace="5" hspace="5" src="assignment1_300.png" alt=""> <img vspace="5" hspace="5" src="assignment1_301.png" alt=""> <img vspace="5" hspace="5" src="assignment1_302.png" alt=""> <img vspace="5" hspace="5" src="assignment1_303.png" alt=""> <img vspace="5" hspace="5" src="assignment1_304.png" alt=""> <img vspace="5" hspace="5" src="assignment1_305.png" alt=""> <img vspace="5" hspace="5" src="assignment1_306.png" alt=""> <img vspace="5" hspace="5" src="assignment1_307.png" alt=""> <img vspace="5" hspace="5" src="assignment1_308.png" alt=""> <img vspace="5" hspace="5" src="assignment1_309.png" alt=""> <img vspace="5" hspace="5" src="assignment1_310.png" alt=""> <img vspace="5" hspace="5" src="assignment1_311.png" alt=""> <img vspace="5" hspace="5" src="assignment1_312.png" alt=""> <img vspace="5" hspace="5" src="assignment1_313.png" alt=""> <img vspace="5" hspace="5" src="assignment1_314.png" alt=""> <img vspace="5" hspace="5" src="assignment1_315.png" alt=""> <img vspace="5" hspace="5" src="assignment1_316.png" alt=""> <img vspace="5" hspace="5" src="assignment1_317.png" alt=""> <img vspace="5" hspace="5" src="assignment1_318.png" alt=""> <img vspace="5" hspace="5" src="assignment1_319.png" alt=""> <img vspace="5" hspace="5" src="assignment1_320.png" alt=""> <img vspace="5" hspace="5" src="assignment1_321.png" alt=""> <img vspace="5" hspace="5" src="assignment1_322.png" alt=""> <img vspace="5" hspace="5" src="assignment1_323.png" alt=""> <img vspace="5" hspace="5" src="assignment1_324.png" alt=""> <img vspace="5" hspace="5" src="assignment1_325.png" alt=""> <img vspace="5" hspace="5" src="assignment1_326.png" alt=""> <img vspace="5" hspace="5" src="assignment1_327.png" alt=""> <img vspace="5" hspace="5" src="assignment1_328.png" alt=""> <img vspace="5" hspace="5" src="assignment1_329.png" alt=""> <img vspace="5" hspace="5" src="assignment1_330.png" alt=""> <img vspace="5" hspace="5" src="assignment1_331.png" alt=""> <img vspace="5" hspace="5" src="assignment1_332.png" alt=""> <img vspace="5" hspace="5" src="assignment1_333.png" alt=""> <img vspace="5" hspace="5" src="assignment1_334.png" alt=""> <img vspace="5" hspace="5" src="assignment1_335.png" alt=""> <img vspace="5" hspace="5" src="assignment1_336.png" alt=""> <img vspace="5" hspace="5" src="assignment1_337.png" alt=""> <img vspace="5" hspace="5" src="assignment1_338.png" alt=""> <img vspace="5" hspace="5" src="assignment1_339.png" alt=""> <img vspace="5" hspace="5" src="assignment1_340.png" alt=""> <img vspace="5" hspace="5" src="assignment1_341.png" alt=""> <img vspace="5" hspace="5" src="assignment1_342.png" alt=""> <img vspace="5" hspace="5" src="assignment1_343.png" alt=""> <img vspace="5" hspace="5" src="assignment1_344.png" alt=""> <img vspace="5" hspace="5" src="assignment1_345.png" alt=""> <img vspace="5" hspace="5" src="assignment1_346.png" alt=""> <img vspace="5" hspace="5" src="assignment1_347.png" alt=""> <img vspace="5" hspace="5" src="assignment1_348.png" alt=""> <img vspace="5" hspace="5" src="assignment1_349.png" alt=""> <img vspace="5" hspace="5" src="assignment1_350.png" alt=""> <img vspace="5" hspace="5" src="assignment1_351.png" alt=""> <img vspace="5" hspace="5" src="assignment1_352.png" alt=""> <img vspace="5" hspace="5" src="assignment1_353.png" alt=""> <img vspace="5" hspace="5" src="assignment1_354.png" alt=""> <img vspace="5" hspace="5" src="assignment1_355.png" alt=""> <img vspace="5" hspace="5" src="assignment1_356.png" alt=""> <img vspace="5" hspace="5" src="assignment1_357.png" alt=""> <img vspace="5" hspace="5" src="assignment1_358.png" alt=""> <img vspace="5" hspace="5" src="assignment1_359.png" alt=""> <img vspace="5" hspace="5" src="assignment1_360.png" alt=""> <img vspace="5" hspace="5" src="assignment1_361.png" alt=""> <img vspace="5" hspace="5" src="assignment1_362.png" alt=""> <img vspace="5" hspace="5" src="assignment1_363.png" alt=""> <img vspace="5" hspace="5" src="assignment1_364.png" alt=""> <img vspace="5" hspace="5" src="assignment1_365.png" alt=""> <img vspace="5" hspace="5" src="assignment1_366.png" alt=""> <img vspace="5" hspace="5" src="assignment1_367.png" alt=""> <img vspace="5" hspace="5" src="assignment1_368.png" alt=""> <img vspace="5" hspace="5" src="assignment1_369.png" alt=""> <img vspace="5" hspace="5" src="assignment1_370.png" alt=""> <img vspace="5" hspace="5" src="assignment1_371.png" alt=""> <img vspace="5" hspace="5" src="assignment1_372.png" alt=""> <img vspace="5" hspace="5" src="assignment1_373.png" alt=""> <img vspace="5" hspace="5" src="assignment1_374.png" alt=""> <img vspace="5" hspace="5" src="assignment1_375.png" alt=""> <img vspace="5" hspace="5" src="assignment1_376.png" alt=""> <img vspace="5" hspace="5" src="assignment1_377.png" alt=""> <img vspace="5" hspace="5" src="assignment1_378.png" alt=""> <img vspace="5" hspace="5" src="assignment1_379.png" alt=""> <img vspace="5" hspace="5" src="assignment1_380.png" alt=""> <img vspace="5" hspace="5" src="assignment1_381.png" alt=""> <img vspace="5" hspace="5" src="assignment1_382.png" alt=""> <img vspace="5" hspace="5" src="assignment1_383.png" alt=""> <img vspace="5" hspace="5" src="assignment1_384.png" alt=""> <img vspace="5" hspace="5" src="assignment1_385.png" alt=""> <img vspace="5" hspace="5" src="assignment1_386.png" alt=""> <img vspace="5" hspace="5" src="assignment1_387.png" alt=""> <img vspace="5" hspace="5" src="assignment1_388.png" alt=""> <img vspace="5" hspace="5" src="assignment1_389.png" alt=""> <img vspace="5" hspace="5" src="assignment1_390.png" alt=""> <img vspace="5" hspace="5" src="assignment1_391.png" alt=""> <img vspace="5" hspace="5" src="assignment1_392.png" alt=""> <img vspace="5" hspace="5" src="assignment1_393.png" alt=""> <img vspace="5" hspace="5" src="assignment1_394.png" alt=""> <img vspace="5" hspace="5" src="assignment1_395.png" alt=""> <img vspace="5" hspace="5" src="assignment1_396.png" alt=""> <img vspace="5" hspace="5" src="assignment1_397.png" alt=""> <img vspace="5" hspace="5" src="assignment1_398.png" alt=""> <img vspace="5" hspace="5" src="assignment1_399.png" alt=""> <img vspace="5" hspace="5" src="assignment1_400.png" alt=""> <img vspace="5" hspace="5" src="assignment1_401.png" alt=""> <img vspace="5" hspace="5" src="assignment1_402.png" alt=""> <img vspace="5" hspace="5" src="assignment1_403.png" alt=""> <img vspace="5" hspace="5" src="assignment1_404.png" alt=""> <img vspace="5" hspace="5" src="assignment1_405.png" alt=""> <img vspace="5" hspace="5" src="assignment1_406.png" alt=""> <img vspace="5" hspace="5" src="assignment1_407.png" alt=""> <img vspace="5" hspace="5" src="assignment1_408.png" alt=""> <img vspace="5" hspace="5" src="assignment1_409.png" alt=""> <img vspace="5" hspace="5" src="assignment1_410.png" alt=""> <img vspace="5" hspace="5" src="assignment1_411.png" alt=""> <img vspace="5" hspace="5" src="assignment1_412.png" alt=""> <img vspace="5" hspace="5" src="assignment1_413.png" alt=""> <img vspace="5" hspace="5" src="assignment1_414.png" alt=""> <img vspace="5" hspace="5" src="assignment1_415.png" alt=""> <img vspace="5" hspace="5" src="assignment1_416.png" alt=""> <img vspace="5" hspace="5" src="assignment1_417.png" alt=""> <img vspace="5" hspace="5" src="assignment1_418.png" alt=""> <img vspace="5" hspace="5" src="assignment1_419.png" alt=""> <img vspace="5" hspace="5" src="assignment1_420.png" alt=""> <img vspace="5" hspace="5" src="assignment1_421.png" alt=""> <img vspace="5" hspace="5" src="assignment1_422.png" alt=""> <img vspace="5" hspace="5" src="assignment1_423.png" alt=""> <img vspace="5" hspace="5" src="assignment1_424.png" alt=""> <img vspace="5" hspace="5" src="assignment1_425.png" alt=""> <img vspace="5" hspace="5" src="assignment1_426.png" alt=""> <img vspace="5" hspace="5" src="assignment1_427.png" alt=""> <img vspace="5" hspace="5" src="assignment1_428.png" alt=""> <img vspace="5" hspace="5" src="assignment1_429.png" alt=""> <img vspace="5" hspace="5" src="assignment1_430.png" alt=""> <img vspace="5" hspace="5" src="assignment1_431.png" alt=""> <img vspace="5" hspace="5" src="assignment1_432.png" alt=""> <img vspace="5" hspace="5" src="assignment1_433.png" alt=""> <img vspace="5" hspace="5" src="assignment1_434.png" alt=""> <img vspace="5" hspace="5" src="assignment1_435.png" alt=""> <img vspace="5" hspace="5" src="assignment1_436.png" alt=""> <img vspace="5" hspace="5" src="assignment1_437.png" alt=""> <img vspace="5" hspace="5" src="assignment1_438.png" alt=""> <img vspace="5" hspace="5" src="assignment1_439.png" alt=""> <img vspace="5" hspace="5" src="assignment1_440.png" alt=""> <img vspace="5" hspace="5" src="assignment1_441.png" alt=""> <img vspace="5" hspace="5" src="assignment1_442.png" alt=""> <img vspace="5" hspace="5" src="assignment1_443.png" alt=""> <img vspace="5" hspace="5" src="assignment1_444.png" alt=""> <img vspace="5" hspace="5" src="assignment1_445.png" alt=""> <img vspace="5" hspace="5" src="assignment1_446.png" alt=""> <img vspace="5" hspace="5" src="assignment1_447.png" alt=""> <img vspace="5" hspace="5" src="assignment1_448.png" alt=""> <img vspace="5" hspace="5" src="assignment1_449.png" alt=""> <img vspace="5" hspace="5" src="assignment1_450.png" alt=""> <img vspace="5" hspace="5" src="assignment1_451.png" alt=""> <img vspace="5" hspace="5" src="assignment1_452.png" alt=""> <img vspace="5" hspace="5" src="assignment1_453.png" alt=""> <img vspace="5" hspace="5" src="assignment1_454.png" alt=""> <img vspace="5" hspace="5" src="assignment1_455.png" alt=""> <img vspace="5" hspace="5" src="assignment1_456.png" alt=""> <img vspace="5" hspace="5" src="assignment1_457.png" alt=""> <img vspace="5" hspace="5" src="assignment1_458.png" alt=""> <img vspace="5" hspace="5" src="assignment1_459.png" alt=""> <img vspace="5" hspace="5" src="assignment1_460.png" alt=""> <img vspace="5" hspace="5" src="assignment1_461.png" alt=""> <img vspace="5" hspace="5" src="assignment1_462.png" alt=""> <img vspace="5" hspace="5" src="assignment1_463.png" alt=""> <img vspace="5" hspace="5" src="assignment1_464.png" alt=""> <img vspace="5" hspace="5" src="assignment1_465.png" alt=""> <img vspace="5" hspace="5" src="assignment1_466.png" alt=""> <img vspace="5" hspace="5" src="assignment1_467.png" alt=""> <img vspace="5" hspace="5" src="assignment1_468.png" alt=""> <img vspace="5" hspace="5" src="assignment1_469.png" alt=""> <img vspace="5" hspace="5" src="assignment1_470.png" alt=""> <img vspace="5" hspace="5" src="assignment1_471.png" alt=""> <img vspace="5" hspace="5" src="assignment1_472.png" alt=""> <img vspace="5" hspace="5" src="assignment1_473.png" alt=""> <img vspace="5" hspace="5" src="assignment1_474.png" alt=""> <img vspace="5" hspace="5" src="assignment1_475.png" alt=""> <img vspace="5" hspace="5" src="assignment1_476.png" alt=""> <img vspace="5" hspace="5" src="assignment1_477.png" alt=""> <img vspace="5" hspace="5" src="assignment1_478.png" alt=""> <img vspace="5" hspace="5" src="assignment1_479.png" alt=""> <img vspace="5" hspace="5" src="assignment1_480.png" alt=""> <img vspace="5" hspace="5" src="assignment1_481.png" alt=""> <img vspace="5" hspace="5" src="assignment1_482.png" alt=""> <img vspace="5" hspace="5" src="assignment1_483.png" alt=""> <img vspace="5" hspace="5" src="assignment1_484.png" alt=""> <img vspace="5" hspace="5" src="assignment1_485.png" alt=""> <img vspace="5" hspace="5" src="assignment1_486.png" alt=""> <img vspace="5" hspace="5" src="assignment1_487.png" alt=""> <img vspace="5" hspace="5" src="assignment1_488.png" alt=""> <img vspace="5" hspace="5" src="assignment1_489.png" alt=""> <img vspace="5" hspace="5" src="assignment1_490.png" alt=""> <img vspace="5" hspace="5" src="assignment1_491.png" alt=""> <img vspace="5" hspace="5" src="assignment1_492.png" alt=""> <img vspace="5" hspace="5" src="assignment1_493.png" alt=""> <img vspace="5" hspace="5" src="assignment1_494.png" alt=""> <img vspace="5" hspace="5" src="assignment1_495.png" alt=""> <img vspace="5" hspace="5" src="assignment1_496.png" alt=""> <img vspace="5" hspace="5" src="assignment1_497.png" alt=""> <img vspace="5" hspace="5" src="assignment1_498.png" alt=""> <img vspace="5" hspace="5" src="assignment1_499.png" alt=""> <img vspace="5" hspace="5" src="assignment1_500.png" alt=""> <img vspace="5" hspace="5" src="assignment1_501.png" alt=""> <img vspace="5" hspace="5" src="assignment1_502.png" alt=""> <img vspace="5" hspace="5" src="assignment1_503.png" alt=""> <img vspace="5" hspace="5" src="assignment1_504.png" alt=""> <img vspace="5" hspace="5" src="assignment1_505.png" alt=""> <img vspace="5" hspace="5" src="assignment1_506.png" alt=""> <img vspace="5" hspace="5" src="assignment1_507.png" alt=""> <img vspace="5" hspace="5" src="assignment1_508.png" alt=""> <img vspace="5" hspace="5" src="assignment1_509.png" alt=""> <img vspace="5" hspace="5" src="assignment1_510.png" alt=""> <img vspace="5" hspace="5" src="assignment1_511.png" alt=""> <img vspace="5" hspace="5" src="assignment1_512.png" alt=""> <img vspace="5" hspace="5" src="assignment1_513.png" alt=""> <img vspace="5" hspace="5" src="assignment1_514.png" alt=""> <img vspace="5" hspace="5" src="assignment1_515.png" alt=""> <img vspace="5" hspace="5" src="assignment1_516.png" alt=""> <img vspace="5" hspace="5" src="assignment1_517.png" alt=""> <img vspace="5" hspace="5" src="assignment1_518.png" alt=""> <img vspace="5" hspace="5" src="assignment1_519.png" alt=""> <img vspace="5" hspace="5" src="assignment1_520.png" alt=""> <img vspace="5" hspace="5" src="assignment1_521.png" alt=""> <img vspace="5" hspace="5" src="assignment1_522.png" alt=""> <img vspace="5" hspace="5" src="assignment1_523.png" alt=""> <img vspace="5" hspace="5" src="assignment1_524.png" alt=""> <img vspace="5" hspace="5" src="assignment1_525.png" alt=""> <img vspace="5" hspace="5" src="assignment1_526.png" alt=""> <img vspace="5" hspace="5" src="assignment1_527.png" alt=""> <img vspace="5" hspace="5" src="assignment1_528.png" alt=""> <img vspace="5" hspace="5" src="assignment1_529.png" alt=""> <img vspace="5" hspace="5" src="assignment1_530.png" alt=""> <img vspace="5" hspace="5" src="assignment1_531.png" alt=""> <img vspace="5" hspace="5" src="assignment1_532.png" alt=""> <img vspace="5" hspace="5" src="assignment1_533.png" alt=""> <img vspace="5" hspace="5" src="assignment1_534.png" alt=""> <img vspace="5" hspace="5" src="assignment1_535.png" alt=""> <img vspace="5" hspace="5" src="assignment1_536.png" alt=""> <img vspace="5" hspace="5" src="assignment1_537.png" alt=""> <img vspace="5" hspace="5" src="assignment1_538.png" alt=""> <img vspace="5" hspace="5" src="assignment1_539.png" alt=""> <img vspace="5" hspace="5" src="assignment1_540.png" alt=""> <img vspace="5" hspace="5" src="assignment1_541.png" alt=""> <img vspace="5" hspace="5" src="assignment1_542.png" alt=""> <img vspace="5" hspace="5" src="assignment1_543.png" alt=""> <img vspace="5" hspace="5" src="assignment1_544.png" alt=""> <img vspace="5" hspace="5" src="assignment1_545.png" alt=""> <img vspace="5" hspace="5" src="assignment1_546.png" alt=""> <img vspace="5" hspace="5" src="assignment1_547.png" alt=""> <img vspace="5" hspace="5" src="assignment1_548.png" alt=""> <img vspace="5" hspace="5" src="assignment1_549.png" alt=""> <img vspace="5" hspace="5" src="assignment1_550.png" alt=""> <img vspace="5" hspace="5" src="assignment1_551.png" alt=""> <img vspace="5" hspace="5" src="assignment1_552.png" alt=""> <img vspace="5" hspace="5" src="assignment1_553.png" alt=""> <img vspace="5" hspace="5" src="assignment1_554.png" alt=""> <img vspace="5" hspace="5" src="assignment1_555.png" alt=""> <img vspace="5" hspace="5" src="assignment1_556.png" alt=""> <img vspace="5" hspace="5" src="assignment1_557.png" alt=""> <img vspace="5" hspace="5" src="assignment1_558.png" alt=""> <img vspace="5" hspace="5" src="assignment1_559.png" alt=""> <img vspace="5" hspace="5" src="assignment1_560.png" alt=""> <img vspace="5" hspace="5" src="assignment1_561.png" alt=""> <img vspace="5" hspace="5" src="assignment1_562.png" alt=""> <img vspace="5" hspace="5" src="assignment1_563.png" alt=""> <img vspace="5" hspace="5" src="assignment1_564.png" alt=""> <img vspace="5" hspace="5" src="assignment1_565.png" alt=""> <img vspace="5" hspace="5" src="assignment1_566.png" alt=""> <img vspace="5" hspace="5" src="assignment1_567.png" alt=""> <img vspace="5" hspace="5" src="assignment1_568.png" alt=""> <img vspace="5" hspace="5" src="assignment1_569.png" alt=""> <img vspace="5" hspace="5" src="assignment1_570.png" alt=""> <img vspace="5" hspace="5" src="assignment1_571.png" alt=""> <img vspace="5" hspace="5" src="assignment1_572.png" alt=""> <img vspace="5" hspace="5" src="assignment1_573.png" alt=""> <img vspace="5" hspace="5" src="assignment1_574.png" alt=""> <img vspace="5" hspace="5" src="assignment1_575.png" alt=""> <img vspace="5" hspace="5" src="assignment1_576.png" alt=""> <img vspace="5" hspace="5" src="assignment1_577.png" alt=""> <img vspace="5" hspace="5" src="assignment1_578.png" alt=""> <img vspace="5" hspace="5" src="assignment1_579.png" alt=""> <img vspace="5" hspace="5" src="assignment1_580.png" alt=""> <img vspace="5" hspace="5" src="assignment1_581.png" alt=""> <img vspace="5" hspace="5" src="assignment1_582.png" alt=""> <img vspace="5" hspace="5" src="assignment1_583.png" alt=""> <img vspace="5" hspace="5" src="assignment1_584.png" alt=""> <img vspace="5" hspace="5" src="assignment1_585.png" alt=""> <img vspace="5" hspace="5" src="assignment1_586.png" alt=""> <img vspace="5" hspace="5" src="assignment1_587.png" alt=""> <img vspace="5" hspace="5" src="assignment1_588.png" alt=""> <img vspace="5" hspace="5" src="assignment1_589.png" alt=""> <img vspace="5" hspace="5" src="assignment1_590.png" alt=""> <img vspace="5" hspace="5" src="assignment1_591.png" alt=""> <img vspace="5" hspace="5" src="assignment1_592.png" alt=""> <img vspace="5" hspace="5" src="assignment1_593.png" alt=""> <img vspace="5" hspace="5" src="assignment1_594.png" alt=""> <img vspace="5" hspace="5" src="assignment1_595.png" alt=""> <img vspace="5" hspace="5" src="assignment1_596.png" alt=""> <img vspace="5" hspace="5" src="assignment1_597.png" alt=""> <img vspace="5" hspace="5" src="assignment1_598.png" alt=""> <img vspace="5" hspace="5" src="assignment1_599.png" alt=""> <img vspace="5" hspace="5" src="assignment1_600.png" alt=""> <img vspace="5" hspace="5" src="assignment1_601.png" alt=""> <img vspace="5" hspace="5" src="assignment1_602.png" alt=""> <img vspace="5" hspace="5" src="assignment1_603.png" alt=""> <img vspace="5" hspace="5" src="assignment1_604.png" alt=""> <img vspace="5" hspace="5" src="assignment1_605.png" alt=""> <img vspace="5" hspace="5" src="assignment1_606.png" alt=""> <img vspace="5" hspace="5" src="assignment1_607.png" alt=""> <img vspace="5" hspace="5" src="assignment1_608.png" alt=""> <img vspace="5" hspace="5" src="assignment1_609.png" alt=""> <img vspace="5" hspace="5" src="assignment1_610.png" alt=""> <img vspace="5" hspace="5" src="assignment1_611.png" alt=""> <img vspace="5" hspace="5" src="assignment1_612.png" alt=""> <img vspace="5" hspace="5" src="assignment1_613.png" alt=""> <img vspace="5" hspace="5" src="assignment1_614.png" alt=""> <img vspace="5" hspace="5" src="assignment1_615.png" alt=""> <img vspace="5" hspace="5" src="assignment1_616.png" alt=""> <img vspace="5" hspace="5" src="assignment1_617.png" alt=""> <img vspace="5" hspace="5" src="assignment1_618.png" alt=""> <img vspace="5" hspace="5" src="assignment1_619.png" alt=""> <img vspace="5" hspace="5" src="assignment1_620.png" alt=""> <img vspace="5" hspace="5" src="assignment1_621.png" alt=""> <img vspace="5" hspace="5" src="assignment1_622.png" alt=""> <img vspace="5" hspace="5" src="assignment1_623.png" alt=""> <img vspace="5" hspace="5" src="assignment1_624.png" alt=""> <img vspace="5" hspace="5" src="assignment1_625.png" alt=""> <img vspace="5" hspace="5" src="assignment1_626.png" alt=""> <img vspace="5" hspace="5" src="assignment1_627.png" alt=""> <img vspace="5" hspace="5" src="assignment1_628.png" alt=""> <img vspace="5" hspace="5" src="assignment1_629.png" alt=""> <img vspace="5" hspace="5" src="assignment1_630.png" alt=""> <img vspace="5" hspace="5" src="assignment1_631.png" alt=""> <img vspace="5" hspace="5" src="assignment1_632.png" alt=""> <img vspace="5" hspace="5" src="assignment1_633.png" alt=""> <img vspace="5" hspace="5" src="assignment1_634.png" alt=""> <img vspace="5" hspace="5" src="assignment1_635.png" alt=""> <img vspace="5" hspace="5" src="assignment1_636.png" alt=""> <img vspace="5" hspace="5" src="assignment1_637.png" alt=""> <img vspace="5" hspace="5" src="assignment1_638.png" alt=""> <img vspace="5" hspace="5" src="assignment1_639.png" alt=""> <img vspace="5" hspace="5" src="assignment1_640.png" alt=""> <img vspace="5" hspace="5" src="assignment1_641.png" alt=""> <img vspace="5" hspace="5" src="assignment1_642.png" alt=""> <img vspace="5" hspace="5" src="assignment1_643.png" alt=""> <img vspace="5" hspace="5" src="assignment1_644.png" alt=""> <img vspace="5" hspace="5" src="assignment1_645.png" alt=""> <img vspace="5" hspace="5" src="assignment1_646.png" alt=""> <img vspace="5" hspace="5" src="assignment1_647.png" alt=""> <img vspace="5" hspace="5" src="assignment1_648.png" alt=""> <img vspace="5" hspace="5" src="assignment1_649.png" alt=""> <img vspace="5" hspace="5" src="assignment1_650.png" alt=""> <img vspace="5" hspace="5" src="assignment1_651.png" alt=""> <img vspace="5" hspace="5" src="assignment1_652.png" alt=""> <img vspace="5" hspace="5" src="assignment1_653.png" alt=""> <img vspace="5" hspace="5" src="assignment1_654.png" alt=""> <img vspace="5" hspace="5" src="assignment1_655.png" alt=""> <img vspace="5" hspace="5" src="assignment1_656.png" alt=""> <img vspace="5" hspace="5" src="assignment1_657.png" alt=""> <img vspace="5" hspace="5" src="assignment1_658.png" alt=""> <img vspace="5" hspace="5" src="assignment1_659.png" alt=""> <img vspace="5" hspace="5" src="assignment1_660.png" alt=""> <img vspace="5" hspace="5" src="assignment1_661.png" alt=""> <img vspace="5" hspace="5" src="assignment1_662.png" alt=""> <img vspace="5" hspace="5" src="assignment1_663.png" alt=""> <img vspace="5" hspace="5" src="assignment1_664.png" alt=""> <img vspace="5" hspace="5" src="assignment1_665.png" alt=""> <img vspace="5" hspace="5" src="assignment1_666.png" alt=""> <img vspace="5" hspace="5" src="assignment1_667.png" alt=""> <img vspace="5" hspace="5" src="assignment1_668.png" alt=""> <img vspace="5" hspace="5" src="assignment1_669.png" alt=""> <img vspace="5" hspace="5" src="assignment1_670.png" alt=""> <img vspace="5" hspace="5" src="assignment1_671.png" alt=""> <img vspace="5" hspace="5" src="assignment1_672.png" alt=""> <img vspace="5" hspace="5" src="assignment1_673.png" alt=""> <img vspace="5" hspace="5" src="assignment1_674.png" alt=""> <img vspace="5" hspace="5" src="assignment1_675.png" alt=""> <img vspace="5" hspace="5" src="assignment1_676.png" alt=""> <img vspace="5" hspace="5" src="assignment1_677.png" alt=""> <img vspace="5" hspace="5" src="assignment1_678.png" alt=""> <img vspace="5" hspace="5" src="assignment1_679.png" alt=""> <img vspace="5" hspace="5" src="assignment1_680.png" alt=""> <img vspace="5" hspace="5" src="assignment1_681.png" alt=""> <img vspace="5" hspace="5" src="assignment1_682.png" alt=""> <img vspace="5" hspace="5" src="assignment1_683.png" alt=""> <img vspace="5" hspace="5" src="assignment1_684.png" alt=""> <img vspace="5" hspace="5" src="assignment1_685.png" alt=""> <img vspace="5" hspace="5" src="assignment1_686.png" alt=""> <img vspace="5" hspace="5" src="assignment1_687.png" alt=""> <img vspace="5" hspace="5" src="assignment1_688.png" alt=""> <img vspace="5" hspace="5" src="assignment1_689.png" alt=""> <img vspace="5" hspace="5" src="assignment1_690.png" alt=""> <img vspace="5" hspace="5" src="assignment1_691.png" alt=""> <img vspace="5" hspace="5" src="assignment1_692.png" alt=""> <img vspace="5" hspace="5" src="assignment1_693.png" alt=""> <img vspace="5" hspace="5" src="assignment1_694.png" alt=""> <img vspace="5" hspace="5" src="assignment1_695.png" alt=""> <img vspace="5" hspace="5" src="assignment1_696.png" alt=""> <img vspace="5" hspace="5" src="assignment1_697.png" alt=""> <img vspace="5" hspace="5" src="assignment1_698.png" alt=""> <img vspace="5" hspace="5" src="assignment1_699.png" alt=""> <img vspace="5" hspace="5" src="assignment1_700.png" alt=""> <img vspace="5" hspace="5" src="assignment1_701.png" alt=""> <img vspace="5" hspace="5" src="assignment1_702.png" alt=""> <img vspace="5" hspace="5" src="assignment1_703.png" alt=""> <img vspace="5" hspace="5" src="assignment1_704.png" alt=""> <img vspace="5" hspace="5" src="assignment1_705.png" alt=""> <img vspace="5" hspace="5" src="assignment1_706.png" alt=""> <img vspace="5" hspace="5" src="assignment1_707.png" alt=""> <img vspace="5" hspace="5" src="assignment1_708.png" alt=""> <img vspace="5" hspace="5" src="assignment1_709.png" alt=""> <img vspace="5" hspace="5" src="assignment1_710.png" alt=""> <img vspace="5" hspace="5" src="assignment1_711.png" alt=""> <img vspace="5" hspace="5" src="assignment1_712.png" alt=""> <img vspace="5" hspace="5" src="assignment1_713.png" alt=""> <img vspace="5" hspace="5" src="assignment1_714.png" alt=""> <img vspace="5" hspace="5" src="assignment1_715.png" alt=""> <img vspace="5" hspace="5" src="assignment1_716.png" alt=""> <img vspace="5" hspace="5" src="assignment1_717.png" alt=""> <img vspace="5" hspace="5" src="assignment1_718.png" alt=""> <img vspace="5" hspace="5" src="assignment1_719.png" alt=""> <img vspace="5" hspace="5" src="assignment1_720.png" alt=""> <img vspace="5" hspace="5" src="assignment1_721.png" alt=""> <img vspace="5" hspace="5" src="assignment1_722.png" alt=""> <img vspace="5" hspace="5" src="assignment1_723.png" alt=""> <img vspace="5" hspace="5" src="assignment1_724.png" alt=""> <img vspace="5" hspace="5" src="assignment1_725.png" alt=""> <img vspace="5" hspace="5" src="assignment1_726.png" alt=""> <img vspace="5" hspace="5" src="assignment1_727.png" alt=""> <img vspace="5" hspace="5" src="assignment1_728.png" alt=""> <img vspace="5" hspace="5" src="assignment1_729.png" alt=""> <img vspace="5" hspace="5" src="assignment1_730.png" alt=""> <img vspace="5" hspace="5" src="assignment1_731.png" alt=""> <img vspace="5" hspace="5" src="assignment1_732.png" alt=""> <img vspace="5" hspace="5" src="assignment1_733.png" alt=""> <img vspace="5" hspace="5" src="assignment1_734.png" alt=""> <img vspace="5" hspace="5" src="assignment1_735.png" alt=""> <img vspace="5" hspace="5" src="assignment1_736.png" alt=""> <img vspace="5" hspace="5" src="assignment1_737.png" alt=""> <img vspace="5" hspace="5" src="assignment1_738.png" alt=""> <img vspace="5" hspace="5" src="assignment1_739.png" alt=""> <img vspace="5" hspace="5" src="assignment1_740.png" alt=""> <img vspace="5" hspace="5" src="assignment1_741.png" alt=""> <img vspace="5" hspace="5" src="assignment1_742.png" alt=""> <img vspace="5" hspace="5" src="assignment1_743.png" alt=""> <img vspace="5" hspace="5" src="assignment1_744.png" alt=""> <img vspace="5" hspace="5" src="assignment1_745.png" alt=""> <img vspace="5" hspace="5" src="assignment1_746.png" alt=""> <img vspace="5" hspace="5" src="assignment1_747.png" alt=""> <img vspace="5" hspace="5" src="assignment1_748.png" alt=""> <img vspace="5" hspace="5" src="assignment1_749.png" alt=""> <img vspace="5" hspace="5" src="assignment1_750.png" alt=""> <img vspace="5" hspace="5" src="assignment1_751.png" alt=""> <img vspace="5" hspace="5" src="assignment1_752.png" alt=""> <img vspace="5" hspace="5" src="assignment1_753.png" alt=""> <img vspace="5" hspace="5" src="assignment1_754.png" alt=""> <img vspace="5" hspace="5" src="assignment1_755.png" alt=""> <img vspace="5" hspace="5" src="assignment1_756.png" alt=""> <img vspace="5" hspace="5" src="assignment1_757.png" alt=""> <img vspace="5" hspace="5" src="assignment1_758.png" alt=""> <img vspace="5" hspace="5" src="assignment1_759.png" alt=""> <img vspace="5" hspace="5" src="assignment1_760.png" alt=""> <img vspace="5" hspace="5" src="assignment1_761.png" alt=""> <img vspace="5" hspace="5" src="assignment1_762.png" alt=""> <img vspace="5" hspace="5" src="assignment1_763.png" alt=""> <img vspace="5" hspace="5" src="assignment1_764.png" alt=""> <img vspace="5" hspace="5" src="assignment1_765.png" alt=""> <img vspace="5" hspace="5" src="assignment1_766.png" alt=""> <img vspace="5" hspace="5" src="assignment1_767.png" alt=""> <img vspace="5" hspace="5" src="assignment1_768.png" alt=""> <img vspace="5" hspace="5" src="assignment1_769.png" alt=""> <img vspace="5" hspace="5" src="assignment1_770.png" alt=""> <img vspace="5" hspace="5" src="assignment1_771.png" alt=""> <img vspace="5" hspace="5" src="assignment1_772.png" alt=""> <img vspace="5" hspace="5" src="assignment1_773.png" alt=""> <img vspace="5" hspace="5" src="assignment1_774.png" alt=""> <img vspace="5" hspace="5" src="assignment1_775.png" alt=""> <img vspace="5" hspace="5" src="assignment1_776.png" alt=""> <img vspace="5" hspace="5" src="assignment1_777.png" alt=""> <img vspace="5" hspace="5" src="assignment1_778.png" alt=""> <img vspace="5" hspace="5" src="assignment1_779.png" alt=""> <img vspace="5" hspace="5" src="assignment1_780.png" alt=""> <img vspace="5" hspace="5" src="assignment1_781.png" alt=""> <img vspace="5" hspace="5" src="assignment1_782.png" alt=""> <img vspace="5" hspace="5" src="assignment1_783.png" alt=""> <img vspace="5" hspace="5" src="assignment1_784.png" alt=""> <img vspace="5" hspace="5" src="assignment1_785.png" alt=""> <img vspace="5" hspace="5" src="assignment1_786.png" alt=""> <img vspace="5" hspace="5" src="assignment1_787.png" alt=""> <img vspace="5" hspace="5" src="assignment1_788.png" alt=""> <img vspace="5" hspace="5" src="assignment1_789.png" alt=""> <img vspace="5" hspace="5" src="assignment1_790.png" alt=""> <img vspace="5" hspace="5" src="assignment1_791.png" alt=""> <img vspace="5" hspace="5" src="assignment1_792.png" alt=""> <img vspace="5" hspace="5" src="assignment1_793.png" alt=""> <img vspace="5" hspace="5" src="assignment1_794.png" alt=""> <img vspace="5" hspace="5" src="assignment1_795.png" alt=""> <img vspace="5" hspace="5" src="assignment1_796.png" alt=""> <img vspace="5" hspace="5" src="assignment1_797.png" alt=""> <img vspace="5" hspace="5" src="assignment1_798.png" alt=""> <img vspace="5" hspace="5" src="assignment1_799.png" alt=""> <img vspace="5" hspace="5" src="assignment1_800.png" alt=""> <img vspace="5" hspace="5" src="assignment1_801.png" alt=""> <img vspace="5" hspace="5" src="assignment1_802.png" alt=""> <img vspace="5" hspace="5" src="assignment1_803.png" alt=""> <img vspace="5" hspace="5" src="assignment1_804.png" alt=""> <img vspace="5" hspace="5" src="assignment1_805.png" alt=""> <img vspace="5" hspace="5" src="assignment1_806.png" alt=""> <img vspace="5" hspace="5" src="assignment1_807.png" alt=""> <img vspace="5" hspace="5" src="assignment1_808.png" alt=""> <img vspace="5" hspace="5" src="assignment1_809.png" alt=""> <img vspace="5" hspace="5" src="assignment1_810.png" alt=""> <img vspace="5" hspace="5" src="assignment1_811.png" alt=""> <img vspace="5" hspace="5" src="assignment1_812.png" alt=""> <img vspace="5" hspace="5" src="assignment1_813.png" alt=""> <img vspace="5" hspace="5" src="assignment1_814.png" alt=""> <img vspace="5" hspace="5" src="assignment1_815.png" alt=""> <img vspace="5" hspace="5" src="assignment1_816.png" alt=""> <img vspace="5" hspace="5" src="assignment1_817.png" alt=""> <img vspace="5" hspace="5" src="assignment1_818.png" alt=""> <img vspace="5" hspace="5" src="assignment1_819.png" alt=""> <img vspace="5" hspace="5" src="assignment1_820.png" alt=""> <img vspace="5" hspace="5" src="assignment1_821.png" alt=""> <img vspace="5" hspace="5" src="assignment1_822.png" alt=""> <img vspace="5" hspace="5" src="assignment1_823.png" alt=""> <img vspace="5" hspace="5" src="assignment1_824.png" alt=""> <img vspace="5" hspace="5" src="assignment1_825.png" alt=""> <img vspace="5" hspace="5" src="assignment1_826.png" alt=""> <img vspace="5" hspace="5" src="assignment1_827.png" alt=""> <img vspace="5" hspace="5" src="assignment1_828.png" alt=""> <img vspace="5" hspace="5" src="assignment1_829.png" alt=""> <img vspace="5" hspace="5" src="assignment1_830.png" alt=""> <img vspace="5" hspace="5" src="assignment1_831.png" alt=""> <img vspace="5" hspace="5" src="assignment1_832.png" alt=""> <img vspace="5" hspace="5" src="assignment1_833.png" alt=""> <img vspace="5" hspace="5" src="assignment1_834.png" alt=""> <img vspace="5" hspace="5" src="assignment1_835.png" alt=""> <img vspace="5" hspace="5" src="assignment1_836.png" alt=""> <img vspace="5" hspace="5" src="assignment1_837.png" alt=""> <img vspace="5" hspace="5" src="assignment1_838.png" alt=""> <img vspace="5" hspace="5" src="assignment1_839.png" alt=""> <img vspace="5" hspace="5" src="assignment1_840.png" alt=""> <img vspace="5" hspace="5" src="assignment1_841.png" alt=""> <img vspace="5" hspace="5" src="assignment1_842.png" alt=""> <img vspace="5" hspace="5" src="assignment1_843.png" alt=""> <img vspace="5" hspace="5" src="assignment1_844.png" alt=""> <img vspace="5" hspace="5" src="assignment1_845.png" alt=""> <img vspace="5" hspace="5" src="assignment1_846.png" alt=""> <img vspace="5" hspace="5" src="assignment1_847.png" alt=""> <img vspace="5" hspace="5" src="assignment1_848.png" alt=""> <img vspace="5" hspace="5" src="assignment1_849.png" alt=""> <img vspace="5" hspace="5" src="assignment1_850.png" alt=""> <img vspace="5" hspace="5" src="assignment1_851.png" alt=""> <img vspace="5" hspace="5" src="assignment1_852.png" alt=""> <img vspace="5" hspace="5" src="assignment1_853.png" alt=""> <img vspace="5" hspace="5" src="assignment1_854.png" alt=""> <img vspace="5" hspace="5" src="assignment1_855.png" alt=""> <img vspace="5" hspace="5" src="assignment1_856.png" alt=""> <img vspace="5" hspace="5" src="assignment1_857.png" alt=""> <img vspace="5" hspace="5" src="assignment1_858.png" alt=""> <img vspace="5" hspace="5" src="assignment1_859.png" alt=""> <img vspace="5" hspace="5" src="assignment1_860.png" alt=""> <img vspace="5" hspace="5" src="assignment1_861.png" alt=""> <img vspace="5" hspace="5" src="assignment1_862.png" alt=""> <img vspace="5" hspace="5" src="assignment1_863.png" alt=""> <img vspace="5" hspace="5" src="assignment1_864.png" alt=""> <img vspace="5" hspace="5" src="assignment1_865.png" alt=""> <img vspace="5" hspace="5" src="assignment1_866.png" alt=""> <img vspace="5" hspace="5" src="assignment1_867.png" alt=""> <img vspace="5" hspace="5" src="assignment1_868.png" alt=""> <img vspace="5" hspace="5" src="assignment1_869.png" alt=""> <img vspace="5" hspace="5" src="assignment1_870.png" alt=""> <img vspace="5" hspace="5" src="assignment1_871.png" alt=""> <img vspace="5" hspace="5" src="assignment1_872.png" alt=""> <img vspace="5" hspace="5" src="assignment1_873.png" alt=""> <img vspace="5" hspace="5" src="assignment1_874.png" alt=""> <img vspace="5" hspace="5" src="assignment1_875.png" alt=""> <img vspace="5" hspace="5" src="assignment1_876.png" alt=""> <img vspace="5" hspace="5" src="assignment1_877.png" alt=""> <img vspace="5" hspace="5" src="assignment1_878.png" alt=""> <img vspace="5" hspace="5" src="assignment1_879.png" alt=""> <img vspace="5" hspace="5" src="assignment1_880.png" alt=""> <img vspace="5" hspace="5" src="assignment1_881.png" alt=""> <img vspace="5" hspace="5" src="assignment1_882.png" alt=""> <img vspace="5" hspace="5" src="assignment1_883.png" alt=""> <img vspace="5" hspace="5" src="assignment1_884.png" alt=""> <img vspace="5" hspace="5" src="assignment1_885.png" alt=""> <img vspace="5" hspace="5" src="assignment1_886.png" alt=""> <img vspace="5" hspace="5" src="assignment1_887.png" alt=""> <img vspace="5" hspace="5" src="assignment1_888.png" alt=""> <img vspace="5" hspace="5" src="assignment1_889.png" alt=""> <img vspace="5" hspace="5" src="assignment1_890.png" alt=""> <img vspace="5" hspace="5" src="assignment1_891.png" alt=""> <img vspace="5" hspace="5" src="assignment1_892.png" alt=""> <img vspace="5" hspace="5" src="assignment1_893.png" alt=""> <img vspace="5" hspace="5" src="assignment1_894.png" alt=""> <img vspace="5" hspace="5" src="assignment1_895.png" alt=""> <img vspace="5" hspace="5" src="assignment1_896.png" alt=""> <img vspace="5" hspace="5" src="assignment1_897.png" alt=""> <img vspace="5" hspace="5" src="assignment1_898.png" alt=""> <img vspace="5" hspace="5" src="assignment1_899.png" alt=""> <img vspace="5" hspace="5" src="assignment1_900.png" alt=""> <img vspace="5" hspace="5" src="assignment1_901.png" alt=""> <img vspace="5" hspace="5" src="assignment1_902.png" alt=""> <img vspace="5" hspace="5" src="assignment1_903.png" alt=""> <img vspace="5" hspace="5" src="assignment1_904.png" alt=""> <img vspace="5" hspace="5" src="assignment1_905.png" alt=""> <img vspace="5" hspace="5" src="assignment1_906.png" alt=""> <img vspace="5" hspace="5" src="assignment1_907.png" alt=""> <img vspace="5" hspace="5" src="assignment1_908.png" alt=""> <img vspace="5" hspace="5" src="assignment1_909.png" alt=""> <img vspace="5" hspace="5" src="assignment1_910.png" alt=""> <img vspace="5" hspace="5" src="assignment1_911.png" alt=""> <img vspace="5" hspace="5" src="assignment1_912.png" alt=""> <img vspace="5" hspace="5" src="assignment1_913.png" alt=""> <img vspace="5" hspace="5" src="assignment1_914.png" alt=""> <img vspace="5" hspace="5" src="assignment1_915.png" alt=""> <img vspace="5" hspace="5" src="assignment1_916.png" alt=""> <img vspace="5" hspace="5" src="assignment1_917.png" alt=""> <img vspace="5" hspace="5" src="assignment1_918.png" alt=""> <img vspace="5" hspace="5" src="assignment1_919.png" alt=""> <img vspace="5" hspace="5" src="assignment1_920.png" alt=""> <img vspace="5" hspace="5" src="assignment1_921.png" alt=""> <img vspace="5" hspace="5" src="assignment1_922.png" alt=""> <img vspace="5" hspace="5" src="assignment1_923.png" alt=""> <img vspace="5" hspace="5" src="assignment1_924.png" alt=""> <img vspace="5" hspace="5" src="assignment1_925.png" alt=""> <img vspace="5" hspace="5" src="assignment1_926.png" alt=""> <img vspace="5" hspace="5" src="assignment1_927.png" alt=""> <img vspace="5" hspace="5" src="assignment1_928.png" alt=""> <img vspace="5" hspace="5" src="assignment1_929.png" alt=""> <img vspace="5" hspace="5" src="assignment1_930.png" alt=""> <img vspace="5" hspace="5" src="assignment1_931.png" alt=""> <img vspace="5" hspace="5" src="assignment1_932.png" alt=""> <img vspace="5" hspace="5" src="assignment1_933.png" alt=""> <img vspace="5" hspace="5" src="assignment1_934.png" alt=""> <img vspace="5" hspace="5" src="assignment1_935.png" alt=""> <img vspace="5" hspace="5" src="assignment1_936.png" alt=""> <img vspace="5" hspace="5" src="assignment1_937.png" alt=""> <img vspace="5" hspace="5" src="assignment1_938.png" alt=""> <img vspace="5" hspace="5" src="assignment1_939.png" alt=""> <img vspace="5" hspace="5" src="assignment1_940.png" alt=""> <img vspace="5" hspace="5" src="assignment1_941.png" alt=""> <img vspace="5" hspace="5" src="assignment1_942.png" alt=""> <img vspace="5" hspace="5" src="assignment1_943.png" alt=""> <img vspace="5" hspace="5" src="assignment1_944.png" alt=""> <img vspace="5" hspace="5" src="assignment1_945.png" alt=""> <img vspace="5" hspace="5" src="assignment1_946.png" alt=""> <img vspace="5" hspace="5" src="assignment1_947.png" alt=""> <img vspace="5" hspace="5" src="assignment1_948.png" alt=""> <img vspace="5" hspace="5" src="assignment1_949.png" alt=""> <img vspace="5" hspace="5" src="assignment1_950.png" alt=""> <img vspace="5" hspace="5" src="assignment1_951.png" alt=""> <img vspace="5" hspace="5" src="assignment1_952.png" alt=""> <img vspace="5" hspace="5" src="assignment1_953.png" alt=""> <img vspace="5" hspace="5" src="assignment1_954.png" alt=""> <img vspace="5" hspace="5" src="assignment1_955.png" alt=""> <img vspace="5" hspace="5" src="assignment1_956.png" alt=""> <img vspace="5" hspace="5" src="assignment1_957.png" alt=""> <img vspace="5" hspace="5" src="assignment1_958.png" alt=""> <img vspace="5" hspace="5" src="assignment1_959.png" alt=""> <img vspace="5" hspace="5" src="assignment1_960.png" alt=""> <img vspace="5" hspace="5" src="assignment1_961.png" alt=""> <img vspace="5" hspace="5" src="assignment1_962.png" alt=""> <img vspace="5" hspace="5" src="assignment1_963.png" alt=""> <img vspace="5" hspace="5" src="assignment1_964.png" alt=""> <img vspace="5" hspace="5" src="assignment1_965.png" alt=""> <img vspace="5" hspace="5" src="assignment1_966.png" alt=""> <img vspace="5" hspace="5" src="assignment1_967.png" alt=""> <img vspace="5" hspace="5" src="assignment1_968.png" alt=""> <img vspace="5" hspace="5" src="assignment1_969.png" alt=""> <img vspace="5" hspace="5" src="assignment1_970.png" alt=""> <img vspace="5" hspace="5" src="assignment1_971.png" alt=""> <img vspace="5" hspace="5" src="assignment1_972.png" alt=""> <img vspace="5" hspace="5" src="assignment1_973.png" alt=""> <img vspace="5" hspace="5" src="assignment1_974.png" alt=""> <img vspace="5" hspace="5" src="assignment1_975.png" alt=""> <img vspace="5" hspace="5" src="assignment1_976.png" alt=""> <img vspace="5" hspace="5" src="assignment1_977.png" alt=""> <img vspace="5" hspace="5" src="assignment1_978.png" alt=""> <img vspace="5" hspace="5" src="assignment1_979.png" alt=""> <img vspace="5" hspace="5" src="assignment1_980.png" alt=""> <img vspace="5" hspace="5" src="assignment1_981.png" alt=""> <img vspace="5" hspace="5" src="assignment1_982.png" alt=""> <img vspace="5" hspace="5" src="assignment1_983.png" alt=""> <img vspace="5" hspace="5" src="assignment1_984.png" alt=""> <img vspace="5" hspace="5" src="assignment1_985.png" alt=""> <img vspace="5" hspace="5" src="assignment1_986.png" alt=""> <img vspace="5" hspace="5" src="assignment1_987.png" alt=""> <img vspace="5" hspace="5" src="assignment1_988.png" alt=""> <img vspace="5" hspace="5" src="assignment1_989.png" alt=""> <img vspace="5" hspace="5" src="assignment1_990.png" alt=""> <img vspace="5" hspace="5" src="assignment1_991.png" alt=""> <img vspace="5" hspace="5" src="assignment1_992.png" alt=""> <img vspace="5" hspace="5" src="assignment1_993.png" alt=""> <img vspace="5" hspace="5" src="assignment1_994.png" alt=""> <img vspace="5" hspace="5" src="assignment1_995.png" alt=""> <img vspace="5" hspace="5" src="assignment1_996.png" alt=""> <img vspace="5" hspace="5" src="assignment1_997.png" alt=""> <img vspace="5" hspace="5" src="assignment1_998.png" alt=""> <img vspace="5" hspace="5" src="assignment1_999.png" alt=""> <img vspace="5" hspace="5" src="assignment1_1000.png" alt=""> <img vspace="5" hspace="5" src="assignment1_1001.png" alt=""> <pre class="codeinput">    <span class="keyword">end</span>
+    pause(0.001)
+<span class="keyword">end</span>
+</pre><h2 id="23">P1: Question 3 ii) Temperature plot</h2><pre class="codeinput">figure;
+plot(Time,Temp,<span class="string">'-'</span>)
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Temperature (K)'</span>);
+title(<span class="string">'Temperature Plot'</span>)
+grid <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="assignment1_1002.png" alt=""> <h2 id="24">Part 2: Collisions with Mean Free Path</h2><pre class="codeinput"><span class="comment">%Velocity from part 1 is now assigned random velocities using</span>
+<span class="comment">%Maxwell-Boltzmann, average speed should be vth</span>
+</pre><h2 id="25">Part 2: Question 1 Histogram</h2><pre class="codeinput">V = sqrt(Vx.^2+Vy.^2);<span class="comment">%get the velocity of each particle</span>
+figure;
+histogram(V,50)<span class="comment">%Plot histogram of Boltzmann distribution of velocities</span>
+xlabel(<span class="string">'Velocity'</span>);
+ylabel(<span class="string">'Number of particles in bin'</span>);
+title(<span class="string">'Histogram of particle velocities'</span>)
+</pre><img vspace="5" hspace="5" src="assignment1_1003.png" alt=""> <img vspace="5" hspace="5" src="assignment1_1004.png" alt=""> <h2 id="26">Part 3: Enhancements</h2><h2 id="27">Part 3 Question 3: Electron Density map</h2><pre class="codeinput">[q,r] = size(Px);<span class="comment">%dimension q is the final index of the timesteps for each particle</span>
+figure;
+plot(Px(q,1:particles),Py(q,1:particles),<span class="string">'.'</span>);<span class="comment">%position P(for last timestep, showing all particles)</span>
+xlim(xlimit)
+ylim(ylimit)
+xlabel(<span class="string">'x'</span>);
+ylabel(<span class="string">'y'</span>);
+</pre><img vspace="5" hspace="5" src="assignment1_1005.png" alt=""> <img vspace="5" hspace="5" src="assignment1_1006.png" alt=""> <h2 id="28">Part 3 Question 4: Temperature map</h2><h2 id="29">End of assignment</h2><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Beginning of Assignment 1
+%I'm not sure if I was supposed to do this report completely
+%in the publishing tool. I have a LaTeX document attached that has
+%more information and graphs on it 
+%(graphs that would show up if part2 or part3 were set to false below)
+clear
+close all
+
+%Which parts are included in the run
+part2 = true;
+part3 = true;
+specular = true;%boundaries for part 3 boxes are specular, if false boxes are diffusive
+
+m_e = 9.1093837015e-31;%rest mass in kg
+m_n = 0.26*m_e;%Effective mass of electrons
+
+%Nominial size of the region in nm
+xlimit = [0 200e-9];
+ylimit = [0 100e-9];
+%% Part 1: Electron Modelling
+%% Part 1: Question 1: What is the thermal velocity?
+kb=1.380649e-23;%Boltzmann's constant [m^2*kg/K*s^2]
+T = 300;%Temperature in Kelvin
+vth = sqrt((3*kb*T)/m_n);
+
+%% Part 1: Question 2: What is the mean free path?
+tmn = 0.2e-12;%mean time between collisions
+MFP = vth*tmn;
+
+%% Part 1: Question 3 Setting initial values of particles
+
+%Amount of particles (total or plotted particles[plots first X particles])
+particles = 10000;
+plottedparticles = 7;
+
+timesteps = 1000;
+dt=2e-15;%time step
+tr=timesteps*dt;%runtime
+
+%Place particles in random locations
+x = zeros([1 particles]);
+y = zeros([1 particles]);
+for n=1:particles
+    x(n) = xlimit(1) + (xlimit(2)-xlimit(1)).*rand;
+    y(n) = ylimit(1) + (ylimit(2)-ylimit(1)).*rand;
+    if part3 %don't place particles in part 3 boxes
+        while (x(n) >= 0.8e-7 && x(n) <= 1.2e-7 && y(n) <= 0.4e-7)...
+                || (x(n) >= 0.8e-7 && x(n) <= 1.2e-7 && y(n) >= 0.6e-7)
+            x(n) = xlimit(1) + (xlimit(2)-xlimit(1)).*rand;
+            y(n) = ylimit(1) + (ylimit(2)-ylimit(1)).*rand;
+        end
+    end
+end
+%% Part 2: Question 1: Give each particle a random velocity
+Rx = (vth).*randn(particles,1) + vth;%Where the average is vth and the variance is vth/4
+Ry = (vth).*randn(particles,1) + vth;
+%% Part 1: Question 3 Continued: Setting initial values of particles
+Vx = zeros([1 particles]);
+Vy = zeros([1 particles]);
+%Get random normalized angles
+for n = 1:particles
+    angX = cos((2*rand-1)*2*pi);
+    angY = sin((2*rand-1)*2*pi);
+    normalized = [angX angY]./norm([angX angY]);
+    if part2
+        Vx(n)= Rx(n)*normalized(1);%Random velocity Rx is used for part 2
+        Vy(n)= Ry(n)*normalized(2);
+    else
+        Vx(n)= vth*normalized(1);%part 1 velocity has magnitude v_thermal
+        Vy(n)= vth*normalized(2);
+    end
+    
+end
+%% Part 1: Question 3 Simulation of the random motion of the electrons after time t
+%Initialize variables used for storage for plotting later
+n=1;
+Px = zeros([timesteps particles]);
+Py = zeros([timesteps particles]);
+Temp = zeros([1 timesteps]);
+Time = zeros([1 timesteps]);
+
+%% Part 2 Question initialization of variables for MFP and time between collisions
+numberOfCollisions = zeros([1 particles]);
+meanTimeBetweenCollisions = zeros([1 particles]);
+meanFreePath = zeros([1 particles]);
+noCollisionYet = true([1 particles]);
+
+%% General particle movement for all parts
+for t = 0:dt:tr
+    %% Part 1: Question 3 Particle location update
+    %Store Location
+    for p = 1:particles
+        Px(n, p)= x(p);
+        Py(n, p)= y(p);
+    end
+    
+    
+    %% Part 2: Question 2 Scattering probabilities
+    if part2
+        Pscat = 1-exp(-(dt)/(tmn));%The scattering probability
+        for p = 1:particles
+            if Pscat > rand
+                Vscatter(p) = sqrt(Vx(p)^2+Vy(p)^2);%Velocity of the particle when it scatters
+                
+                %Give new random velocities and directions
+                angX = cos((2*rand-1)*2*pi);
+                angY = sin((2*rand-1)*2*pi);
+                normalized = [angX angY]./norm([angX angY]);
+                Rx = (vth).*randn + vth;
+                Ry = (vth).*randn + vth;
+                Vx(p) = Rx*normalized(1);
+                Vy(p) = Ry*normalized(2);
+                
+                %Find the time and distance since the last collision
+                if noCollisionYet(p)
+                    noCollisionYet(p) = false;
+                else
+                    numberOfCollisions(p) = numberOfCollisions(p) + 1;
+                    meanTimeBetweenCollisions(p) = (meanTimeBetweenCollisions(p) + (t - lastCollisionTime(p)))/ numberOfCollisions(p);
+                    
+                end
+                lastCollisionTime(p) = t;
+            end
+        end
+    end
+    
+    %% Part 1: Question 3 Particle outer boundaries
+    %Check boundaries Outer Boundaries
+    for p = 1:particles
+        if (y(p)+ Vy(p)*dt) <= ylimit(1) || (y(p)+Vy(p)*dt) >= ylimit(2)
+            Vy(p) = -1*Vy(p);
+        end
+        if x(p) <= xlimit(1) 
+            x(p) = x(p) + xlimit(2);
+        elseif x(p) >= xlimit(2)
+            x(p) = x(p) - xlimit(2);
+        end
+    end
+    %% Part 3: Question 1 Boundary boxes
+    %Check Box Boundaries
+    if part3
+        
+        %Specular boundaries
+        if specular
+            for p = 1:particles
+                   %if the next position of the particle is in the box
+                   %change the particle's direction
+                   if ((x(p) + Vx(p)*dt) >= 0.8e-7 && (x(p) + Vx(p)*dt) <= 1.2e-7 &&...
+                           (y(p) + Vy(p)*dt <= 0.4e-7 || y(p) + Vy(p)*dt >= 0.6e-7))
+                       %if the position of the particle is currently between
+                       %the two boxes reflect in the y-direction
+                       if x(p) >= 0.8e-7 && x(p) <= 1.2e-7 
+                           Vy(p) = -1*Vy(p);
+                       %otherwise reflect in the x-direction
+                       else
+                           Vx(p) = -1*Vx(p);
+                       end
+                   end
+            end
+        %Diffusive boundaries
+        else 
+            for p = 1:particles
+                   %if the next position of the particle is in the box
+                   %change the particle's direction
+                   if ((x(p) + Vx(p)*dt) >= 0.8e-7 && (x(p) + Vx(p)*dt) <= 1.2e-7 &&...
+                           (y(p) + Vy(p)*dt <= 0.4e-7 || y(p) + Vy(p)*dt >= 0.6e-7))
+                       %if the position of the particle is currently between
+                       %the two boxes reflect in the y-direction with a
+                       %random x velocity
+                       if x(p) >= 0.8e-7 && x(p) <= 1.2e-7 
+                           angX = cos((2*rand-1)*2*pi);
+                           angY = sin((2*rand-1)*2*pi);
+                           normalized = [angX angY]./norm([angX angY]);
+                           Rx = (vth).*randn + vth;
+                           Vx(p) = Rx*normalized(1);
+                           Vy(p) = -1*Vy(p);
+                       %otherwise reflect in the x-direction with a random
+                       %y velocity
+                       else
+                           angX = cos((2*rand-1)*2*pi);
+                           angY = sin((2*rand-1)*2*pi);
+                           normalized = [angX angY]./norm([angX angY]);
+                           Ry = (vth).*randn + vth;
+                           Vx(p) = -1*Vx(p);
+                           Vy(p) = Ry*normalized(2);
+                       end
+                   end
+            end
+        end
+    end
+    %% Question 1 Part 3: Advance the particle's location and find the temp
+    %Advance Location
+    distance = Vx*dt;
+    x= x + Vx*dt;
+    y= y + Vy*dt;    
+    %Calculate the temperature at each time step and store the values of
+    %Temp and Time
+    Temp(n) = (2/3)*(1/kb)*(1/2)*m_n*(sum(Vx.^2+Vy.^2))/p;
+    Time(n) = t;
+    %% Part 3 Question 4: Temperature map
+    
+    
+    %% Proceed to next column of matrix that plots particle trajectories for data storage
+    n=n+1;%New column in matrix for each timestep
+end
+%% Part 2: Question 4 Mean free path and mean time between collisions
+measuredMeanTimeBetweenCollisions = sum(meanTimeBetweenCollisions)/particles
+measuredMeanFreePath = sum(measuredMeanTimeBetweenCollisions*Vscatter)/particles
+%% Part 1: Question 3 i) Plot Trajectories
+s = size(Px);
+figure;
+for N = 1:s(1)
+    for pl = 1:plottedparticles
+        plot(Px(1:N, pl),Py(1:N, pl),'.');
+        hold on
+    end
+    hold off
+    xlim(xlimit)
+    ylim(ylimit)
+    xlabel('x');
+    ylabel('y');
+    grid on
+    if part3
+        %% Part 3: Enhancements Question 1 Boundary boxes
+        rectangle('Position',[0.8e-7 0 0.4e-7 0.4e-7])
+        rectangle('Position',[0.8e-7 0.6e-7 0.4e-7 0.4e-7])
+    end
+    pause(0.001)
+end
+
+%% P1: Question 3 ii) Temperature plot
+figure;
+plot(Time,Temp,'-')
+xlabel('Time (s)');
+ylabel('Temperature (K)');
+title('Temperature Plot')
+grid on
+
+%% Part 2: Collisions with Mean Free Path
+%Velocity from part 1 is now assigned random velocities using
+%Maxwell-Boltzmann, average speed should be vth
+%% Part 2: Question 1 Histogram
+V = sqrt(Vx.^2+Vy.^2);%get the velocity of each particle
+figure;
+histogram(V,50)%Plot histogram of Boltzmann distribution of velocities
+xlabel('Velocity');
+ylabel('Number of particles in bin');
+title('Histogram of particle velocities')
+
+%% Part 3: Enhancements
+%% Part 3 Question 3: Electron Density map
+[q,r] = size(Px);%dimension q is the final index of the timesteps for each particle
+figure;
+plot(Px(q,1:particles),Py(q,1:particles),'.');%position P(for last timestep, showing all particles)
+xlim(xlimit)
+ylim(ylimit)
+xlabel('x');
+ylabel('y');
+
+%% Part 3 Question 4: Temperature map
+
+%% End of assignment
+##### SOURCE END #####
+--></body></html>

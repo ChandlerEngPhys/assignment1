@@ -1,4 +1,8 @@
 %% Beginning of Assignment 1
+%I'm not sure if I was supposed to do this report completely
+%in the publishing tool. I have a LaTeX document attached that has
+%more information and graphs on it 
+%(graphs that would show up if part2 or part3 were set to false below)
 clear
 close all
 
@@ -27,7 +31,7 @@ MFP = vth*tmn;
 
 %Amount of particles (total or plotted particles[plots first X particles])
 particles = 1000;
-plottedparticles = 20;
+plottedparticles = 7;
 
 timesteps = 1000;
 dt=2e-15;%time step
@@ -67,9 +71,7 @@ for n = 1:particles
     end
     
 end
-%% Part 1: Question 3
-%%Simulation of the random motion of the electrons after time t
-
+%% Part 1: Question 3 Simulation of the random motion of the electrons after time t
 %Initialize variables used for storage for plotting later
 n=1;
 Px = zeros([timesteps particles]);
@@ -82,6 +84,7 @@ numberOfCollisions = zeros([1 particles]);
 meanTimeBetweenCollisions = zeros([1 particles]);
 meanFreePath = zeros([1 particles]);
 noCollisionYet = true([1 particles]);
+
 %% General particle movement for all parts
 for t = 0:dt:tr
     %% Part 1: Question 3 Particle location update
@@ -97,6 +100,8 @@ for t = 0:dt:tr
         Pscat = 1-exp(-(dt)/(tmn));%The scattering probability
         for p = 1:particles
             if Pscat > rand
+                Vscatter(p) = sqrt(Vx(p)^2+Vy(p)^2);%Velocity of the particle when it scatters
+                
                 %Give new random velocities and directions
                 angX = cos((2*rand-1)*2*pi);
                 angY = sin((2*rand-1)*2*pi);
@@ -160,12 +165,24 @@ for t = 0:dt:tr
                    if ((x(p) + Vx(p)*dt) >= 0.8e-7 && (x(p) + Vx(p)*dt) <= 1.2e-7 &&...
                            (y(p) + Vy(p)*dt <= 0.4e-7 || y(p) + Vy(p)*dt >= 0.6e-7))
                        %if the position of the particle is currently between
-                       %the two boxes reflect in the y-direction
+                       %the two boxes reflect in the y-direction with a
+                       %random x velocity
                        if x(p) >= 0.8e-7 && x(p) <= 1.2e-7 
+                           angX = cos((2*rand-1)*2*pi);
+                           angY = sin((2*rand-1)*2*pi);
+                           normalized = [angX angY]./norm([angX angY]);
+                           Rx = (vth).*randn + vth;
+                           Vx(p) = Rx*normalized(1);
                            Vy(p) = -1*Vy(p);
-                       %otherwise reflect in the x-direction
+                       %otherwise reflect in the x-direction with a random
+                       %y velocity
                        else
+                           angX = cos((2*rand-1)*2*pi);
+                           angY = sin((2*rand-1)*2*pi);
+                           normalized = [angX angY]./norm([angX angY]);
+                           Ry = (vth).*randn + vth;
                            Vx(p) = -1*Vx(p);
+                           Vy(p) = Ry*normalized(2);
                        end
                    end
             end
@@ -180,13 +197,17 @@ for t = 0:dt:tr
     %Temp and Time
     Temp(n) = (2/3)*(1/kb)*(1/2)*m_n*(sum(Vx.^2+Vy.^2))/p;
     Time(n) = t;
+    %% Part 3 Question 4: Temperature map
+    for p = 1:particles
+        TempMap(n,p) = (2/3)*(1/kb)*(1/2)*m_n*(sum(Vx(p).^2+Vy(p).^2));
+    end
     
     %% Proceed to next column of matrix that plots particle trajectories for data storage
     n=n+1;%New column in matrix for each timestep
 end
 %% Part 2: Question 4 Mean free path and mean time between collisions
 measuredMeanTimeBetweenCollisions = sum(meanTimeBetweenCollisions)/particles
-measuredMeanFreePath = sum(measuredMeanTimeBetweenCollisions*sqrt(Vx.^2+Vy.^2))/particles
+measuredMeanFreePath = sum(measuredMeanTimeBetweenCollisions*Vscatter)/particles
 %% Part 1: Question 3 i) Plot Trajectories
 s = size(Px);
 figure;
@@ -229,11 +250,18 @@ ylabel('Number of particles in bin');
 title('Histogram of particle velocities')
 
 %% Part 3: Enhancements
+%% Part 3 Question 3: Electron Density map
+[q,r] = size(Px);%dimension q is the final index of the timesteps for each particle
 figure;
-plot(Px(1:N, pl),Py(1:N, pl),'.');
+plot(Px(q,1:particles),Py(q,1:particles),'.');%position P(for last timestep, showing all particles)
 xlim(xlimit)
 ylim(ylimit)
 xlabel('x');
 ylabel('y');
 
+%% Part 3 Question 4: Temperature map
+TempMap = zeros([1 particles]);
+
+figure;
+surf(Px(q,1:particles),Py(q,1:particles),TempMap);
 %% End of assignment

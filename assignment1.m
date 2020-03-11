@@ -1,14 +1,14 @@
+function [] = assignment1(part2,part3)
 %% Beginning of Assignment 1
 %I'm not sure if I was supposed to do this report completely
 %in the publishing tool. I have a LaTeX document attached that has
 %more information and graphs on it 
 %(graphs that would show up if part2 or part3 were set to false below)
-clear
-close all
+
 
 %Which parts are included in the run
-part2 = true;
-part3 = true;
+%part2 = true/false;
+%part3 = true/false;
 specular = true;%boundaries for part 3 boxes are specular, if false boxes are diffusive
 
 m_e = 9.1093837015e-31;%rest mass in kg
@@ -21,7 +21,7 @@ ylimit = [0 100e-9];
 %% Part 1: Question 1: What is the thermal velocity?
 kb=1.380649e-23;%Boltzmann's constant [m^2*kg/K*s^2]
 T = 300;%Temperature in Kelvin
-vth = sqrt((3*kb*T)/m_n);
+vth = sqrt((2*kb*T)/m_n);
 
 %% Part 1: Question 2: What is the mean free path?
 tmn = 0.2e-12;%mean time between collisions
@@ -33,7 +33,7 @@ MFP = vth*tmn;
 particles = 10000;
 plottedparticles = 7;
 
-timesteps = 1000;
+timesteps = 100;
 dt=2e-15;%time step
 tr=timesteps*dt;%runtime
 
@@ -52,8 +52,8 @@ for n=1:particles
     end
 end
 %% Part 2: Question 1: Give each particle a random velocity
-Rx = (vth).*randn(particles,1) + vth;%Where the average is vth and the variance is vth/4
-Ry = (vth).*randn(particles,1) + vth;
+Rx = (vth)/sqrt(2).*randn(particles,1) + vth/sqrt(2);%Where the average is vth and the variance is vth/4
+Ry = (vth)/sqrt(2).*randn(particles,1) + vth/sqrt(2);
 %% Part 1: Question 3 Continued: Setting initial values of particles
 Vx = zeros([1 particles]);
 Vy = zeros([1 particles]);
@@ -106,8 +106,8 @@ for t = 0:dt:tr
                 angX = cos((2*rand-1)*2*pi);
                 angY = sin((2*rand-1)*2*pi);
                 normalized = [angX angY]./norm([angX angY]);
-                Rx = (vth).*randn + vth;
-                Ry = (vth).*randn + vth;
+                Rx = (vth)/sqrt(2).*randn + vth/sqrt(2);
+                Ry = (vth)/sqrt(2).*randn + vth/sqrt(2);
                 Vx(p) = Rx*normalized(1);
                 Vy(p) = Ry*normalized(2);
                 
@@ -171,7 +171,7 @@ for t = 0:dt:tr
                            angX = cos((2*rand-1)*2*pi);
                            angY = sin((2*rand-1)*2*pi);
                            normalized = [angX angY]./norm([angX angY]);
-                           Rx = (vth).*randn + vth;
+                           Rx = (vth)/sqrt(2).*randn + vth/sqrt(2);
                            Vx(p) = Rx*normalized(1);
                            Vy(p) = -1*Vy(p);
                        %otherwise reflect in the x-direction with a random
@@ -180,7 +180,7 @@ for t = 0:dt:tr
                            angX = cos((2*rand-1)*2*pi);
                            angY = sin((2*rand-1)*2*pi);
                            normalized = [angX angY]./norm([angX angY]);
-                           Ry = (vth).*randn + vth;
+                           Ry = (vth)/sqrt(2).*randn + vth/sqrt(2);
                            Vx(p) = -1*Vx(p);
                            Vy(p) = Ry*normalized(2);
                        end
@@ -204,8 +204,10 @@ for t = 0:dt:tr
     n=n+1;%New column in matrix for each timestep
 end
 %% Part 2: Question 4 Mean free path and mean time between collisions
-measuredMeanTimeBetweenCollisions = sum(meanTimeBetweenCollisions)/particles
-measuredMeanFreePath = sum(measuredMeanTimeBetweenCollisions*Vscatter)/particles
+if part2
+    measuredMeanTimeBetweenCollisions = sum(meanTimeBetweenCollisions)/particles
+    measuredMeanFreePath = sum(measuredMeanTimeBetweenCollisions*Vscatter)/particles
+end
 %% Part 1: Question 3 i) Plot Trajectories
 s = size(Px);
 figure;
@@ -260,3 +262,4 @@ ylabel('y');
 %% Part 3 Question 4: Temperature map
 
 %% End of assignment
+end
